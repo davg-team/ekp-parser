@@ -1,0 +1,486 @@
+[
+  {
+    "regionCode": 2,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsprb"
+    ]
+  },
+  {
+    "regionCode": 5,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsprd"
+    ],
+    "inactive": [
+      "t.me/fsp_dagestan (2022)"
+    ]
+  },
+  {
+    "regionCode": 6,
+    "site": null,
+    "telegram": [
+      "fsping"
+    ],
+    "vk": [
+      "fsping"
+    ]
+  },
+  {
+    "regionCode": 10,
+    "site": "https://fsp-karelia.ru",
+    "telegram": [],
+    "vk": [
+      "fspkarelia"
+    ]
+  },
+  {
+    "regionCode": 11,
+    "site": null,
+    "telegram": [
+      "fspkomi"
+    ],
+    "vk": [
+      "fspkomi"
+    ]
+  },
+  {
+    "regionCode": 13,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp13"
+    ]
+  },
+  {
+    "regionCode": 14,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp_yakutia"
+    ]
+  },
+  {
+    "regionCode": 16,
+    "site": null,
+    "telegram": [
+      "fsp_RT"
+    ],
+    "vk": [
+      "fsprt"
+    ],
+    "inactive": [
+      "t.me/fsp_tatarstan (2022)"
+    ]
+  },
+  {
+    "regionCode": 18,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fspur"
+    ]
+  },
+  {
+    "regionCode": 20,
+    "site": null,
+    "telegram": [
+      "fspchr"
+    ],
+    "vk": [
+      "fsp20"
+    ]
+  },
+  {
+    "regionCode": 21,
+    "site": null,
+    "telegram": [
+      "fspchuv"
+    ],
+    "vk": [
+      "fspchuv"
+    ]
+  },
+  {
+    "regionCode": 22,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp22"
+    ]
+  },
+  {
+    "regionCode": 23,
+    "site": null,
+    "telegram": [
+      "fsp_krd"
+    ],
+    "vk": [
+      "fsp_krd"
+    ]
+  },
+  {
+    "regionCode": 24,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fspkras"
+    ]
+  },
+  {
+    "regionCode": 26,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fspsk"
+    ]
+  },
+  {
+    "regionCode": 27,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp27"
+    ]
+  },
+  {
+    "regionCode": 33,
+    "site": "https://fsp-vladimir.ru",
+    "telegram": [],
+    "vk": []
+  },
+  {
+    "regionCode": 36,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp36"
+    ]
+  },
+  {
+    "regionCode": 37,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp37"
+    ]
+  },
+  {
+    "regionCode": 38,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp.irkutsk"
+    ]
+  },
+  {
+    "regionCode": 39,
+    "site": "https://fsp-kaliningrad.ru",
+    "telegram": [
+      "fsp_kld"
+    ],
+    "vk": []
+  },
+  {
+    "regionCode": 42,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fspkuzbass"
+    ]
+  },
+  {
+    "regionCode": 43,
+    "site": null,
+    "telegram": [
+      "fspko43"
+    ],
+    "vk": [
+      "fsp43"
+    ]
+  },
+  {
+    "regionCode": 44,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp44"
+    ]
+  },
+  {
+    "regionCode": 46,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fspkursk"
+    ]
+  },
+  {
+    "regionCode": 47,
+    "site": null,
+    "telegram": [
+      "fsplo"
+    ],
+    "vk": [
+      "fsp47"
+    ],
+    "inactive": [
+      "t.me/fsp47 (2025-06)"
+    ]
+  },
+  {
+    "regionCode": 48,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp48"
+    ]
+  },
+  {
+    "regionCode": 50,
+    "site": null,
+    "telegram": [],
+    "vk": [],
+    "inactive": [
+      "t.me/fspmo (2022)"
+    ]
+  },
+  {
+    "regionCode": 54,
+    "site": null,
+    "telegram": [
+      "fspnsk"
+    ],
+    "vk": [
+      "fspnsk"
+    ]
+  },
+  {
+    "regionCode": 55,
+    "site": null,
+    "telegram": [
+      "fsp_omsk"
+    ],
+    "vk": [
+      "fsp_omsk"
+    ]
+  },
+  {
+    "regionCode": 56,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "orenfsp"
+    ]
+  },
+  {
+    "regionCode": 57,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp57"
+    ]
+  },
+  {
+    "regionCode": 58,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsppenza"
+    ]
+  },
+  {
+    "regionCode": 59,
+    "site": "https://fsp-perm.ru",
+    "telegram": [
+      "fsppk"
+    ],
+    "vk": [
+      "fsppk",
+      "fsp.perm"
+    ],
+    "inactive": [
+      "t.me/fsp_perm (2023)"
+    ]
+  },
+  {
+    "regionCode": 60,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp_pskov"
+    ]
+  },
+  {
+    "regionCode": 61,
+    "site": null,
+    "telegram": [
+      "fsp61"
+    ],
+    "vk": [
+      "fspro"
+    ]
+  },
+  {
+    "regionCode": 62,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp_rzn"
+    ]
+  },
+  {
+    "regionCode": 63,
+    "site": null,
+    "telegram": [
+      "fspsamara"
+    ],
+    "vk": [
+      "fspsamara"
+    ]
+  },
+  {
+    "regionCode": 64,
+    "site": null,
+    "telegram": [
+      "fsp_saratov"
+    ],
+    "vk": [
+      "fsp_saratov"
+    ]
+  },
+  {
+    "regionCode": 66,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "uralsp",
+      "fspso"
+    ]
+  },
+  {
+    "regionCode": 68,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp68"
+    ]
+  },
+  {
+    "regionCode": 69,
+    "site": null,
+    "telegram": [
+      "fsptver"
+    ],
+    "vk": [
+      "fsptver"
+    ]
+  },
+  {
+    "regionCode": 71,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp71"
+    ]
+  },
+  {
+    "regionCode": 72,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp72"
+    ]
+  },
+  {
+    "regionCode": 73,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fspul"
+    ]
+  },
+  {
+    "regionCode": 74,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fspchelyabinsk"
+    ]
+  },
+  {
+    "regionCode": 76,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp.yaroslavl"
+    ]
+  },
+  {
+    "regionCode": 77,
+    "site": null,
+    "telegram": [
+      "fspmsk"
+    ],
+    "vk": [
+      "fspmsk"
+    ]
+  },
+  {
+    "regionCode": 78,
+    "site": null,
+    "telegram": [
+      "fspspb"
+    ],
+    "vk": [
+      "fspspb"
+    ]
+  },
+  {
+    "regionCode": 80,
+    "site": null,
+    "telegram": [
+      "fspdnr"
+    ],
+    "vk": []
+  },
+  {
+    "regionCode": 81,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsp_lnr"
+    ]
+  },
+  {
+    "regionCode": 85,
+    "site": null,
+    "telegram": [
+      "fsp_zo"
+    ],
+    "vk": [
+      "fsp_zo"
+    ]
+  },
+  {
+    "regionCode": 86,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fsphmao"
+    ],
+    "inactive": [
+      "t.me/fsphmao (2023)"
+    ]
+  },
+  {
+    "regionCode": 91,
+    "site": null,
+    "telegram": [],
+    "vk": [
+      "fspcrimea"
+    ]
+  }
+]
