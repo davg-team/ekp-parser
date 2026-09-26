@@ -7,7 +7,8 @@ on:
 
 jobs:
   check:
-    runs-on: ubuntu-latest
+    # Переменная репозитория RUNS_ON (напр. ["self-hosted","linux","x64"]) уводит джобу на свой раннер.
+    runs-on: ${{ fromJSON(vars.RUNS_ON || '"ubuntu-latest"') }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4

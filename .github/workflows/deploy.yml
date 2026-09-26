@@ -19,7 +19,8 @@ concurrency:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    # Переменная репозитория RUNS_ON (напр. ["self-hosted","linux","x64"]) уводит джобу на свой раннер.
+    runs-on: ${{ fromJSON(vars.RUNS_ON || '"ubuntu-latest"') }}
     if: vars.YC_FOLDER_ID != ''
     steps:
       - uses: actions/checkout@v4
