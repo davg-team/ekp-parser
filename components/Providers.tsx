@@ -7,7 +7,9 @@ import { createContext, useCallback, useContext, useEffect, useState } from "rea
 
 // uikit не размечен под RSC — всё, что его тянет, живёт за этой клиентской границей.
 configure({ lang: "ru" });
-void settings.loadLocale("ru").then(() => settings.setLocale("ru"));
+// Локаль дат грузится асинхронно; пока её нет, date-components падают («reading 'formats'»),
+// поэтому интерфейс рисуем только после загрузки — и только в браузере.
+const localeReady = settings.loadLocale("ru").then(() => settings.setLocale("ru"));
 
 const toaster = new Toaster();
 type Theme = "light" | "dark";
@@ -18,6 +20,10 @@ const KEY = "ekp_theme";
 
 export function Providers({ children }: { children: React.ReactNode }) {
   const [theme, setTheme] = useState<Theme>("light");
+  const [ready, setReady] = useState(false);
+  useEffect(() => {
+    void localeReady.then(() => setReady(true));
+  }, []);
   const [client] = useState(() => new QueryClient({ defaultOptions: { queries: { staleTime: 30_000, refetchOnWindowFocus: false } } }));
   useEffect(() => {
     try {
@@ -42,7 +48,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
       <ThemeProvider theme={theme}>
         <ToasterProvider toaster={toaster}>
           <QueryClientProvider client={client}>
-            {children}
+            {ready ? children : null}
             <ToasterComponent />
           </QueryClientProvider>
         </ToasterProvider>
