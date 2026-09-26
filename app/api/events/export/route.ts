@@ -1,10 +1,11 @@
 import type { NextRequest } from "next/server";
+import { SOURCE_LABEL } from "@/lib/filters/fields";
 import { queryEvents } from "@/lib/server/query";
 
 export const dynamic = "force-dynamic";
 
 const COLS: [string, (e: import("@/lib/types").SportEvent, fed?: import("@/lib/types").Federation) => unknown][] = [
-  ["Источник", (e) => (e.source === "ekp" ? "ЕКП" : "ФСП")],
+  ["Источник", (e) => SOURCE_LABEL[e.source]],
   ["№ СМ в ЕКП", (e) => e.ekpId],
   ["Название", (e) => e.name],
   ["Уровень", (e) => e.level],

@@ -11,6 +11,8 @@ export type FieldDef = {
   options?: string[];
 };
 
+export const SOURCE_LABEL: Record<SportEvent["source"], string> = { ekp: "ЕКП", fsp: "ФСП", region: "Регион" };
+
 const days = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / 86_400_000);
 
 export function status(e: SportEvent, today: string): string {
@@ -29,7 +31,7 @@ export const FIELDS: FieldDef[] = [
   { key: "status", label: "Статус", type: "enum", get: status, options: ["Предстоит", "Идёт", "Прошло", "Исключено"] },
   { key: "year", label: "Год", type: "number", get: (e) => e.year },
   { key: "level", label: "Уровень", type: "enum", get: (e) => e.level },
-  { key: "source", label: "Источник", type: "enum", get: (e) => (e.source === "ekp" ? "ЕКП" : "ФСП"), options: ["ЕКП", "ФСП"] },
+  { key: "source", label: "Источник", type: "enum", get: (e) => SOURCE_LABEL[e.source], options: Object.values(SOURCE_LABEL) },
   { key: "disciplines", label: "Дисциплины", type: "array", get: (e) => e.disciplines },
   { key: "region", label: "Субъект РФ", type: "enum", get: (e) => e.region },
   { key: "federalDistrict", label: "Фед. округ", type: "enum", get: (e) => e.federalDistrict },

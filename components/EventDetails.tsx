@@ -10,6 +10,8 @@ import { getJson } from "@/lib/client/fetch";
 import { fmtDate, fmtDateTime, fmtPeriod } from "@/lib/client/format";
 import type { Federation, Revision, SourceDoc, SportEvent } from "@/lib/types";
 
+const SOURCE_NAME = { ekp: "ЕКП Минспорта", fsp: "Календарь ФСП", region: "Региональное отделение" } as const;
+
 type Resp = { event: SportEvent; revisions: Revision[]; federation: Federation | null; source: SourceDoc | null; related: SportEvent[] };
 
 const KIND = { added: "Добавлено", changed: "Изменено", removed: "Исключено из источника", restored: "Возвращено" } as const;
@@ -44,7 +46,7 @@ export function EventDetails({ id }: { id: string }) {
         <div style={{ display: "flex", gap: 6, marginTop: 8, flexWrap: "wrap" }}>
           <Label theme="info">{status(e, today)}</Label>
           <Label theme="utility">{e.level}</Label>
-          <Label>{e.source === "ekp" ? "ЕКП Минспорта" : "Календарь ФСП"}</Label>
+          <Label>{SOURCE_NAME[e.source]}</Label>
           {e.isOnline && <Label theme="info">Онлайн</Label>}
         </div>
       </div>
@@ -61,14 +63,14 @@ export function EventDetails({ id }: { id: string }) {
           <Row k="Примечание">{e.note ?? "—"}</Row>
           {e.ekpId && <Row k="№ СМ в ЕКП">{e.ekpId}</Row>}
           {e.url && (
-            <Row k="Страница">
+            <Row k={e.source === "region" ? "Исходный пост" : "Страница"}>
               <Link href={e.url} target="_blank">{e.url}</Link>
             </Row>
           )}
           <Row k="Источник">
             {source ? (
               <>
-                <Link href={source.url} target="_blank">{source.kind === "ekp-part2" ? `ЕКП ${source.year}, часть II` : "Календарь ФСП"}</Link>
+                <Link href={source.url} target="_blank">{source.kind === "ekp-part2" ? `ЕКП ${source.year}, часть II` : source.kind === "region" ? source.url.replace(/^https?:\/\//, "") : "Календарь ФСП"}</Link>
                 {source.asOf && <span className="muted"> · по состоянию на {fmtDate(source.asOf)}</span>}
               </>
             ) : "—"}
@@ -88,6 +90,14 @@ export function EventDetails({ id }: { id: string }) {
             <Row k="E-mail">{f.email ? <Link href={`mailto:${f.email}`}>{f.email}</Link> : "—"}</Row>
             {f.phone && <Row k="Телефон">{f.phone}</Row>}
             {f.url && <Row k="Страница"><Link href={f.url} target="_blank">{f.url}</Link></Row>}
+            {f.site && <Row k="Сайт"><Link href={f.site} target="_blank">{f.site}</Link></Row>}
+            {f.socials.length > 0 && (
+              <Row k="Соцсети">
+                {f.socials.map((u, i) => (
+                  <span key={u}>{i > 0 && ", "}<Link href={u} target="_blank">{u.replace(/^https?:\/\//, "")}</Link></span>
+                ))}
+              </Row>
+            )}
           </div>
         ) : (
           <Text color="secondary">
@@ -99,7 +109,7 @@ export function EventDetails({ id }: { id: string }) {
       {related.length > 0 && (
         <Card view="outlined" style={{ padding: 16 }}>
           <Text variant="subheader-2" as="div" style={{ marginBottom: 8 }}>
-            {e.source === "ekp" ? "То же мероприятие в календаре ФСП" : "То же мероприятие в ЕКП"}
+            {e.source === "ekp" ? "То же мероприятие в других источниках" : "То же мероприятие в ЕКП"}
           </Text>
           {related.map((r) => (
             <div key={r.id}>

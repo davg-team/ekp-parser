@@ -9,7 +9,7 @@ import type { Revision, SourceDoc, SyncLogEntry } from "@/lib/types";
 
 type Resp = { sources: SourceDoc[]; syncLog: SyncLogEntry[]; recentRevisions: (Revision & { name: string })[] };
 const KIND = { added: ["Добавлено", "success"], changed: ["Изменено", "warning"], removed: ["Исключено", "danger"], restored: ["Возвращено", "info"] } as const;
-const SRC = { "ekp-part2": "ЕКП, часть II", "fsp-calendar": "Календарь ФСП", "fsp-regions": "Отделения ФСП" } as const;
+const SRC = { "ekp-part2": "ЕКП, часть II", "fsp-calendar": "Календарь ФСП", "fsp-regions": "Отделения ФСП", region: "Отделение" } as const;
 
 export function SourcesPage() {
   const q = useQuery({ queryKey: ["sources"], queryFn: () => getJson<Resp>("/api/sources") });
@@ -23,7 +23,7 @@ export function SourcesPage() {
           <Table
             data={d?.sources ?? []}
             columns={[
-              { id: "kind", name: "Источник", template: (s) => `${SRC[s.kind]}${s.year ? ` ${s.year}` : ""}` },
+              { id: "kind", name: "Источник", template: (s) => (s.kind === "region" ? <Link href={s.url} target="_blank">{s.url.replace(/^https?:\/\//, "")}</Link> : `${SRC[s.kind]}${s.year ? ` ${s.year}` : ""}`) },
               { id: "asOf", name: "По состоянию на", template: (s) => fmtDate(s.asOf) },
               { id: "eventsCount", name: "Записей", align: "end", template: (s) => s.eventsCount ?? "—" },
               { id: "fetchedAt", name: "Загружено", template: (s) => fmtDateTime(s.fetchedAt) },
