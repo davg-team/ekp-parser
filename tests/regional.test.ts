@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { buildAdapters, withSources } from "../lib/fsp/regional";
 import { findDates } from "../lib/fsp/regional/dates";
-import { extractByRules, postsToEvents, textHash, type ExtractCache } from "../lib/fsp/regional/extract";
+import { extractByRules, postsToEvents } from "../lib/fsp/regional/extract";
 import { parseTelegramPage, telegramAdapter } from "../lib/fsp/regional/telegram";
 import { windowScope } from "../lib/fsp/regional/types";
 import { isFspGroup, parseVkWall, vkAdapter } from "../lib/fsp/regional/vk";
@@ -51,7 +51,7 @@ describe("Telegram", () => {
 
   it("правила: региональные анонсы, без репостов всероссийских", async () => {
     const posts = parseTelegramPage(file("tg-fspsamara.html"));
-    const ev = await postsToEvents("tg-fspsamara", 63, posts, { llm: false });
+    const ev = postsToEvents("tg-fspsamara", 63, posts);
     expect(ev.map((e) => [e.id, e.dateFrom, e.dateTo])).toEqual([
       ["region:tg-fspsamara:591", "2026-02-22", "2026-02-22"],
       ["region:tg-fspsamara:600", "2026-04-12", "2026-04-12"],
@@ -79,7 +79,7 @@ describe("Telegram", () => {
   it("адаптер: fetch без сети, окно просмотренных постов", async () => {
     const html = file("tg-fspchuv.html");
     vi.stubGlobal("fetch", vi.fn(async () => new Response(html)));
-    const a = telegramAdapter("fspchuv", 21, { pages: 1, llm: false, now: new Date("2026-09-26") });
+    const a = telegramAdapter("fspchuv", 21, { pages: 1, now: new Date("2026-09-26") });
     const ev = await a.fetch();
     expect(ev.map((e) => e.id)).toEqual(["region:tg-fspchuv:211", "region:tg-fspchuv:213"]);
     expect(a.inScope({ id: "region:tg-fspchuv:200", source: "region" } as SportEvent)).toBe(true);
@@ -114,7 +114,7 @@ describe("VK", () => {
   it("адаптер: wall.get → записи со ссылкой на пост", async () => {
     vi.stubEnv("VK_SERVICE_TOKEN", "test");
     stubVk();
-    const a = vkAdapter("fspsamara", 63, { llm: false });
+    const a = vkAdapter("fspsamara", 63);
     const ev = await a.fetch();
     expect(ev.map((e) => [e.id, e.dateFrom])).toEqual([
       ["region:vk-fspsamara:191", "2026-02-22"],
@@ -134,30 +134,14 @@ describe("VK", () => {
   });
 });
 
-describe("LLM-кэш и интеграция", () => {
-  it("результат LLM из кэша — без вызова API", async () => {
-    const posts = parseTelegramPage(file("tg-fspchuv.html"));
-    const p = posts.find((x) => x.key === "211")!;
-    const cache: ExtractCache = {
-      "tg-fspchuv:211": {
-        h: textHash(p.text),
-        by: "llm",
-        events: [{ name: "Чемпионат Чувашии", dateFrom: "2026-09-23", dateTo: "2026-09-26", city: "Чебоксары", venue: "ЧГУ", isOnline: false, disciplines: [], organizer: null }],
-      },
-    };
-    vi.stubGlobal("fetch", vi.fn(async () => { throw new Error("сеть в тестах запрещена"); }));
-    const ev = await postsToEvents("tg-fspchuv", 21, [p], { cache, llm: true });
-    expect(ev).toHaveLength(1);
-    expect(ev[0]).toMatchObject({ city: "Чебоксары", venue: "ЧГУ", id: "region:tg-fspchuv:211" });
-  });
-
+describe("интеграция", () => {
   it("слияние: пропавшее вне окна не исключается", async () => {
     const posts = parseTelegramPage(file("tg-fspsamara.html"));
     const ds = emptyDataset();
     const old = { id: "region:tg-fspsamara:100", source: "region" } as SportEvent;
     const out = { id: "region:tg-fspsamara:595", source: "region" } as SportEvent;
     ds.events.push({ ...old, removedAt: null } as SportEvent, { ...out, removedAt: null } as SportEvent);
-    const ev = await postsToEvents("tg-fspsamara", 63, posts, { llm: false });
+    const ev = postsToEvents("tg-fspsamara", 63, posts);
     const scope = windowScope("tg-fspsamara", posts);
     const st = mergeSnapshot(ds, ev, scope, "region:tg-fspsamara");
     expect(st).toMatchObject({ added: 3, removed: 1 });
@@ -171,8 +155,8 @@ describe("LLM-кэш и интеграция", () => {
     expect(x.site).toBe("https://x.ru");
     expect(x.socials).toEqual(["https://t.me/fspsamara", "https://vk.com/fspsamara"]);
     const src = [{ regionCode: 63, site: null, telegram: ["a"], vk: ["b"] }];
-    expect(buildAdapters({}, src).map((a) => a.id)).toEqual(["tg-a"]);
+    expect(buildAdapters(src).map((a) => a.id)).toEqual(["tg-a"]);
     vi.stubEnv("VK_SERVICE_TOKEN", "t");
-    expect(buildAdapters({}, src).map((a) => a.id)).toEqual(["tg-a", "vk-b"]);
+    expect(buildAdapters(src).map((a) => a.id)).toEqual(["tg-a", "vk-b"]);
   });
 });

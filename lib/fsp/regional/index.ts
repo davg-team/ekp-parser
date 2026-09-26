@@ -1,6 +1,5 @@
 import sources from "../../../data/regional-sources.json";
 import type { Federation } from "../../types";
-import type { ExtractOpts } from "./extract";
 import { telegramAdapter } from "./telegram";
 import type { RegionAdapter } from "./types";
 import { vkAdapter, vkEnabled } from "./vk";
@@ -22,11 +21,11 @@ export function withSources(feds: Federation[], list = REGIONAL_SOURCES): Federa
 }
 
 /** Адаптеры: Telegram — всегда, VK — при наличии VK_SERVICE_TOKEN. */
-export function buildAdapters(opts: ExtractOpts = {}, list = REGIONAL_SOURCES): RegionAdapter[] {
+export function buildAdapters(list = REGIONAL_SOURCES): RegionAdapter[] {
   const out: RegionAdapter[] = [];
   for (const s of list) {
-    for (const c of s.telegram) out.push(telegramAdapter(c, s.regionCode, opts));
-    if (vkEnabled()) for (const v of s.vk) out.push(vkAdapter(v, s.regionCode, opts));
+    for (const c of s.telegram) out.push(telegramAdapter(c, s.regionCode));
+    if (vkEnabled()) for (const v of s.vk) out.push(vkAdapter(v, s.regionCode));
   }
   return out;
 }

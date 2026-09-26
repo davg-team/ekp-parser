@@ -9,7 +9,7 @@
 | [ЕКП Минспорта](https://www.minsport.gov.ru/activity/government-regulation/edinyj-kalendarnyj-plan/), часть II (PDF ~37 МБ, ~2700 стр.) | раздел «СПОРТИВНОЕ ПРОГРАММИРОВАНИЕ» за текущий и 2 прошлых года | `lib/ekp/*` — pdfjs, разбор по x-координатам колонок |
 | [fsp-russia.ru/region/regions](https://fsp-russia.ru/region/regions/) | 89 региональных отделений: руководитель, e-mail | `lib/fsp/regions.ts` |
 | [fsp-russia.ru/calendar](https://fsp-russia.ru/calendar/) | календарь ФСП (±12 месяцев) | `lib/fsp/calendar.ts` |
-| Telegram-каналы и группы VK региональных отделений ([справочник](data/regional-sources.json), [разведка](docs/regional-sources.md)) | анонсы региональных соревнований и хакатонов | `lib/fsp/regional/*` — посты → LLM (`ANTHROPIC_API_KEY`) или правила |
+| Telegram-каналы и группы VK региональных отделений ([справочник](data/regional-sources.json), [разведка](docs/regional-sources.md)) | анонсы региональных соревнований и хакатонов | `lib/fsp/regional/*` — посты → мероприятия по правилам (ключевые слова, даты) |
 
 Новая версия ЕКП определяется по URL файла (в имени — дата актуализации). Изменения
 мероприятий пишутся в историю (добавлено / изменено поле / исключено / возвращено).

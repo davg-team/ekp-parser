@@ -1,7 +1,7 @@
 import { parse } from "node-html-parser";
 import { fetchText } from "../../http";
 import type { SportEvent } from "../../types";
-import { postsToEvents, type ExtractOpts } from "./extract";
+import { postsToEvents } from "./extract";
 import { windowScope, type Post, type RegionAdapter } from "./types";
 
 // Публичное превью канала t.me/s/<канал>: ~20 постов на страницу, листается ?before=<№ поста>.
@@ -37,7 +37,7 @@ export function parseTelegramPage(html: string): Post[] {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export type TelegramOpts = ExtractOpts & { pages?: number; sinceDays?: number; now?: Date };
+export type TelegramOpts = { pages?: number; sinceDays?: number; now?: Date };
 
 export function telegramAdapter(channel: string, region: number, opts: TelegramOpts = {}): RegionAdapter {
   const id = `tg-${channel.toLowerCase()}`;
@@ -63,7 +63,7 @@ export function telegramAdapter(channel: string, region: number, opts: TelegramO
         await sleep(1000);
       }
       scope = windowScope(id, posts);
-      return postsToEvents(id, region, posts, opts);
+      return postsToEvents(id, region, posts);
     },
   };
 }

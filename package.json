@@ -15,7 +15,6 @@
     "sync": "tsx scripts/sync.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.128.0",
     "@gravity-ui/date-components": "^4.1.0",
     "@gravity-ui/date-utils": "^2.7.2",
     "@gravity-ui/icons": "^2.22.0",

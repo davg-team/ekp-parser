@@ -1,6 +1,3 @@
-import Anthropic from "@anthropic-ai/sdk";
-import { zodOutputFormat } from "@anthropic-ai/sdk/helpers/zod";
-import { z } from "zod";
 import type { Incoming } from "../../sync/merge";
 import { regionByCode } from "../../regions";
 import { findDates } from "./dates";
@@ -26,7 +23,7 @@ export const DISCIPLINES: [RegExp, string][] = [
 
 export const disciplinesOf = (s: string) => DISCIPLINES.filter(([re]) => re.test(s)).map(([, d]) => d);
 
-/** Мероприятие, извлечённое из поста (правилами или LLM). */
+/** Мероприятие, извлечённое из поста. */
 export type Extracted = {
   name: string;
   dateFrom: string;
@@ -78,104 +75,13 @@ export function extractByRules(p: Post): Extracted[] {
   ];
 }
 
-// --- LLM ---
-
-export const LLM_MODEL = "claude-haiku-4-5-20251001";
-
-const Schema = z.object({
-  events: z.array(
-    z.object({
-      name: z.string(),
-      dateFrom: z.string().describe("YYYY-MM-DD"),
-      dateTo: z.string().describe("YYYY-MM-DD"),
-      city: z.string().nullable(),
-      venue: z.string().nullable(),
-      isOnline: z.boolean(),
-      scope: z.enum(["regional", "federal", "other"]),
-      disciplines: z.array(z.string()),
-      organizer: z.string().nullable(),
-    }),
-  ),
-});
-
-const SYSTEM = `Ты извлекаешь спортивные мероприятия из постов регионального отделения Федерации спортивного программирования.
-Верни мероприятия (соревнования, хакатоны, олимпиады, турниры, лиги), у которых в посте есть конкретные даты проведения.
-scope:
-- "regional" — проводит или соорганизует региональное отделение, либо мероприятие уровня субъекта, города, вуза в этом регионе (чемпионат области, кубок края, городской хакатон, открытый турнир);
-- "federal" — всероссийские и международные мероприятия, Чемпионаты/Кубки/Первенства России, чемпионаты федеральных округов, Кубок Федерации, их отборочные этапы;
-- "other" — не соревнование (лекция, поздравление, итоги без дат, реклама).
-Даты — даты проведения, а не регистрации. Год не указан — выбери ближайший к дате поста.
-Дисциплины — из списка: ${DISCIPLINES.map(([, d]) => d).join("; ")}.
-Название — короткое официальное название мероприятия, без эмодзи. Нет мероприятий — пустой массив.`;
-
-let client: Anthropic | null = null;
-
-export const llmEnabled = () => !!process.env.ANTHROPIC_API_KEY;
-
-/** Извлечение через Claude; оставляем только региональные мероприятия. */
-export async function extractByLlm(p: Post, regionName: string): Promise<Extracted[]> {
-  client ??= new Anthropic({ timeout: 30_000, maxRetries: 1 });
-  const res = await client.messages.parse({
-    model: LLM_MODEL,
-    max_tokens: 2000,
-    system: SYSTEM,
-    messages: [{ role: "user", content: `Регион отделения: ${regionName}\nДата поста: ${p.date}\n\n${p.text}` }],
-    output_config: { format: zodOutputFormat(Schema) },
-  });
-  const events = res.parsed_output?.events ?? [];
-  const known = new Set(DISCIPLINES.map(([, d]) => d));
-  return events
-    .filter((e) => e.scope === "regional" && /^\d{4}-\d{2}-\d{2}$/.test(e.dateFrom) && /^\d{4}-\d{2}-\d{2}$/.test(e.dateTo))
-    .map(({ scope: _s, ...e }) => ({
-      ...e,
-      dateTo: e.dateTo < e.dateFrom ? e.dateFrom : e.dateTo,
-      disciplines: e.disciplines.map((d) => d.toUpperCase()).filter((d) => known.has(d)),
-    }));
-}
-
-/** Кэш извлечения: ключ поста → хэш текста и результат (чтобы не звать LLM на каждый синк). */
-export type ExtractCache = Record<string, { h: string; by: "llm"; events: Extracted[] }>;
-
-export function textHash(s: string): string {
-  let h = 5381;
-  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) | 0;
-  return (h >>> 0).toString(16);
-}
-
-export type ExtractOpts = { cache?: ExtractCache; llm?: boolean; maxLlmCalls?: number };
-
-/** Посты → записи. LLM — если есть ключ; ошибка LLM по посту — откат к правилам. */
-export async function postsToEvents(adapter: string, regionCode: number, posts: Post[], opts: ExtractOpts = {}): Promise<Incoming[]> {
-  const region = regionByCode(regionCode);
-  const useLlm = opts.llm ?? llmEnabled();
-  let calls = opts.maxLlmCalls ?? 40;
+/** Посты → записи. Повторы внутри источника (анонс, итоги) склеиваются по датам. */
+export function postsToEvents(adapter: string, regionCode: number, posts: Post[]): Incoming[] {
   const out: Incoming[] = [];
   const seenDates = new Set<string>();
-  // старые посты первыми: запись привязывается к первому анонсу, итоги и повторы склеиваются
+  // старые посты первыми: запись привязывается к первому анонсу
   for (const p of [...posts].sort((a, b) => a.seq - b.seq)) {
-    if (!isCandidate(p)) continue;
-    const ck = `${adapter}:${p.key}`;
-    const h = textHash(p.text);
-    const cached = opts.cache?.[ck];
-    let evs: Extracted[];
-    let by: "llm" | "rules" = "rules";
-    // результат правил не кэшируем: они дешёвые и меняются вместе с кодом
-    if (cached && cached.h === h && cached.by === "llm") {
-      evs = cached.events;
-      by = cached.by;
-    } else if (useLlm && calls > 0) {
-      calls--;
-      try {
-        evs = await extractByLlm(p, region?.name ?? String(regionCode));
-        by = "llm";
-      } catch {
-        evs = extractByRules(p);
-      }
-    } else {
-      evs = extractByRules(p);
-    }
-    if (opts.cache && by === "llm") opts.cache[ck] = { h, by, events: evs };
-    evs.forEach((e, i) => {
+    extractByRules(p).forEach((e, i) => {
       const k = `${e.dateFrom}/${e.dateTo}`;
       if (seenDates.has(k)) return;
       seenDates.add(k);

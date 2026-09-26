@@ -1,5 +1,3 @@
-import type { ExtractCache } from "./fsp/regional/extract";
-
 export type EventSource = "ekp" | "fsp" | "region";
 
 export type EventLevel =
@@ -107,6 +105,6 @@ export type Dataset = {
   federations: Federation[];
   views: SavedView[];
   syncLog: SyncLogEntry[];
-  /** кэш извлечения мероприятий из постов отделений */
-  extractCache?: ExtractCache;
+  /** устаревшее поле (кэш LLM), удаляется при синке */
+  extractCache?: unknown;
 };

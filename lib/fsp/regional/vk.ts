@@ -1,6 +1,6 @@
 import { fetchOk } from "../../http";
 import type { SportEvent } from "../../types";
-import { postsToEvents, type ExtractOpts } from "./extract";
+import { postsToEvents } from "./extract";
 import { windowScope, type Post, type RegionAdapter } from "./types";
 
 // VK API: сервисный ключ приложения (VK_SERVICE_TOKEN) читает стены открытых групп.
@@ -38,7 +38,7 @@ export function parseVkWall(groupId: number, items: VkPost[]): Post[] {
     .filter((p) => p.text);
 }
 
-export function vkAdapter(screenName: string, region: number, opts: ExtractOpts & { count?: number } = {}): RegionAdapter {
+export function vkAdapter(screenName: string, region: number, opts: { count?: number } = {}): RegionAdapter {
   const id = `vk-${screenName.toLowerCase().replace(/[^a-z0-9_]/g, "_")}`;
   let scope: (e: SportEvent) => boolean = () => false;
   return {
@@ -56,7 +56,7 @@ export function vkAdapter(screenName: string, region: number, opts: ExtractOpts 
       const wall = await call<{ items: VkPost[] }>("wall.get", { owner_id: String(-g.id), count: String(opts.count ?? 100) });
       const posts = parseVkWall(g.id, wall.items);
       scope = windowScope(id, posts);
-      return postsToEvents(id, region, posts, opts);
+      return postsToEvents(id, region, posts);
     },
   };
 }

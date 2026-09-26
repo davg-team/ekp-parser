@@ -1,7 +1,6 @@
 import { buildAdapters, type RegionAdapter } from "../fsp/regional";
-import type { ExtractCache } from "../fsp/regional/extract";
 import { vkEnabled } from "../fsp/regional/vk";
-import { mutate, readDataset } from "../store";
+import { mutate } from "../store";
 import type { SourceDoc } from "../types";
 import { linkEvents } from "./link";
 import { mergeSnapshot, type Incoming } from "./merge";
@@ -21,8 +20,7 @@ type Outcome = { adapter: RegionAdapter; events: Incoming[] | null; error: strin
 export async function syncRegional(now = new Date(), adapters?: RegionAdapter[]) {
   const at = now.toISOString();
   const t0 = Date.now();
-  const cache: ExtractCache = { ...((await readDataset()).extractCache ?? {}) };
-  const list = adapters ?? buildAdapters({ cache });
+  const list = adapters ?? buildAdapters();
   const outcomes: Outcome[] = [];
   for (const a of list) {
     if (Date.now() - t0 > TOTAL_BUDGET) {
@@ -50,7 +48,7 @@ export async function syncRegional(now = new Date(), adapters?: RegionAdapter[])
       const st = mergeSnapshot(ds, events, (e) => e.source === "region" && a.inScope(e), sourceId, at);
       res[a.id] = st.total ? st : 0;
     }
-    ds.extractCache = cache;
+    delete ds.extractCache;
     linkEvents(ds);
     const failed = outcomes.filter((o) => o.error).length;
     return {
