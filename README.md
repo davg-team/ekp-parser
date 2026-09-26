@@ -17,25 +17,40 @@
 
 ## Стек
 
-Один Next.js 16 (API + UI на Gravity UI). Всё состояние — один JSON (`lib/store`):
-локально `.data/dataset.json`, в облаке — объект в Object Storage (данных — сотни записей,
-отдельная БД не нужна). Фильтры и сортировка — на сервере по AST (`lib/filters`).
+Next.js 16 + Gravity UI, собранный статически (`output: "export"`) и опубликованный на **GitHub Pages**.
+Сервера нет:
 
-Yandex Cloud: Cloud Function (standalone Next + `server/yc-handler.mjs`) за API Gateway,
-статика `/_next/static` из бакета, ежедневный timer-триггер → `POST /api/cron/sync`.
+- **Парсинг — в GitHub Actions** (`.github/workflows/sync.yml`, ежедневно в 06:00 МСК и вручную
+  «Run workflow»): `pnpm sync` обновляет `data/dataset.json` и коммитит его в `main`.
+- **Сайт** (`.github/workflows/pages.yml`) пересобирается после каждого синка и пуша в `main`:
+  `scripts/build-data.ts` шифрует датасет паролем `DATA_PASSWORD` (PBKDF2 + AES-GCM) в `public/data.enc`,
+  браузер скачивает его целиком, расшифровывает после ввода пароля и сам считает фильтры,
+  сортировку и CSV (`lib/client/api.ts`). Пароль защищает от случайных глаз, а не от целевой атаки.
+- Представления (сохранённые фильтры) хранятся в `localStorage` браузера.
+
+Данных — сотни записей, поэтому весь датасет — один JSON, отдельная БД не нужна. История изменений
+видна и в git: каждый синк — коммит с диффом `data/dataset.json`.
+
+## Настройка репозитория (один раз)
+
+1. Settings → Pages → Source: **GitHub Actions**. Для приватного репозитория нужен платный план;
+   сайт на Pages всё равно публичный — поэтому данные зашифрованы.
+2. Settings → Secrets → Actions: `DATA_PASSWORD` — пароль входа на сайт (обязателен: без него
+   `pages.yml` падает, чтобы не опубликовать данные открытыми); `VK_SERVICE_TOKEN` — по желанию.
+3. Actions → Sync → Run workflow — первый синк; сайт соберётся следом.
 
 ## Локально
 
 ```bash
 pnpm install
-pnpm sync          # скачать ЕКП и ФСП в .data/dataset.json (~40 с)
-pnpm dev           # http://localhost:3000
+pnpm sync          # скачать ЕКП и ФСП в data/dataset.json (~40 с)
+pnpm dev           # http://localhost:3000 (данные открыто, без пароля)
 pnpm test
 ```
 
 `pnpm sync regional` — только региональные отделения (Telegram без ключей; VK — при `VK_SERVICE_TOKEN`).
-`pnpm sync ekp --force` — перепарсить ЕКП даже без новой версии. Пароль входа — `APP_PASSWORD`
-(не задан — вход не спрашивается), см. `.env.example`.
+`pnpm sync ekp --force` — перепарсить ЕКП даже без новой версии.
+`DATA_PASSWORD=… pnpm build && pnpm preview` — собрать сайт как на Pages (в `out/`).
 
 ## Фильтры
 
@@ -44,20 +59,3 @@ pnpm test
 (текст, списки, даты в т.ч. «ближайшие N дней» / «этот квартал», числа, да/нет). Всё состояние —
 в URL, им можно делиться; можно сохранить как «Представление». Сортировка по нескольким
 колонкам — ⌘/Ctrl + клик по заголовку. Выгрузка текущей выборки — CSV (Excel, `;`).
-
-## Деплой
-
-Один раз:
-
-```bash
-yc init                                   # аккаунт с правом создавать ресурсы
-CLOUD_ID=<id> ./scripts/yc-bootstrap.sh   # создаст каталог ekp-parser
-# или в существующий каталог:
-FOLDER_ID=<id> ./scripts/yc-bootstrap.sh
-```
-
-Скрипт идемпотентный: сервисные аккаунты, бакет, функция (+ первая версия), API Gateway,
-timer-триггер, OIDC-федерация для GitHub Actions и переменные репозитория. Секреты
-(`APP_PASSWORD`, `SESSION_SECRET`, `CRON_SECRET`) — в `.env.prod.local` (не в git).
-
-Дальше каждый push в `main` деплоится `.github/workflows/deploy.yml`; вручную — `./scripts/deploy.sh`.

@@ -6,8 +6,8 @@ import { linkEvents } from "./link";
 import { mergeSnapshot, type Incoming } from "./merge";
 
 const ADAPTER_TIMEOUT = 60_000;
-// Весь синк — не дольше 10 минут (Cloud Function); ЕКП и ФСП занимают ~1 мин.
-const TOTAL_BUDGET = 6 * 60_000;
+// Синк идёт в GitHub Actions (timeout-minutes: 30 в sync.yml); ЕКП и ФСП занимают ~1 мин.
+const TOTAL_BUDGET = 15 * 60_000;
 
 function withTimeout<T>(p: Promise<T>, ms: number, what: string): Promise<T> {
   let t: NodeJS.Timeout;

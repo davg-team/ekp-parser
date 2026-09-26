@@ -1,0 +1,64 @@
+name: Sync
+
+# Парсинг источников по расписанию: обновляет data/dataset.json и коммитит в main.
+# После него pages.yml пересобирает сайт (workflow_run: пуш от GITHUB_TOKEN сам воркфлоу не запускает).
+
+on:
+  schedule:
+    - cron: "0 3 * * *" # 06:00 МСК
+  workflow_dispatch:
+    inputs:
+      job:
+        description: "Что обновить"
+        type: choice
+        options: [all, ekp, fsp, regional]
+        default: all
+      force:
+        description: "Перепарсить ЕКП даже без новой версии"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ${{ fromJSON(vars.RUNS_ON || '"ubuntu-latest"') }}
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # Падение одной задачи не отменяет коммит того, что удалось собрать; статус — в конце.
+      - name: Sync
+        id: sync
+        continue-on-error: true
+        env:
+          VK_SERVICE_TOKEN: ${{ secrets.VK_SERVICE_TOKEN }}
+        run: pnpm sync ${{ inputs.job || 'all' }} ${{ inputs.force && '--force' || '' }}
+
+      - name: Commit data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/dataset.json
+          if git diff --cached --quiet; then echo "данные не изменились"; exit 0; fi
+          git commit -m "Данные: синхронизация ${{ inputs.job || 'all' }} $(date -u +%Y-%m-%d)"
+          # между чекаутом и пушем в main могли прийти коммиты
+          git pull --rebase
+          git push
+
+      - name: Result
+        if: steps.sync.outcome != 'success'
+        run: |
+          echo "::error::часть задач синхронизации упала — см. шаг Sync"
+          exit 1
