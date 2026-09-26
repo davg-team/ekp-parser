@@ -23,7 +23,10 @@ import { decodeFilter, decodeSort, encodeFilter, encodeSort, type Group, type So
 import { FIELD_BY_KEY } from "@/lib/filters/fields";
 import { fmtDateTime, plural, shortDiscipline } from "@/lib/client/format";
 import { composeFilter, DEFAULT_STATUS, readQuick, writeQuick, type Quick } from "@/lib/client/quick";
+import { deleteView as deleteViewLocal, downloadCsv, saveView as saveViewLocal } from "@/lib/client/api";
 import { getJson } from "@/lib/client/fetch";
+
+const SYNC_URL = `https://github.com/${process.env.NEXT_PUBLIC_REPO ?? "davg-team/ekp-parser"}/actions/workflows/sync.yml`;
 import type { EventsResponse, MetaResponse } from "@/lib/client/types";
 import type { SavedView } from "@/lib/types";
 import { EventsTable } from "./EventsTable";
@@ -117,28 +120,13 @@ export function EventsPage() {
   const events = useQuery({ queryKey: ["events", apiParams], queryFn: () => getJson<EventsResponse>(`/api/events?${apiParams}`), placeholderData: (prev) => prev });
   const views = useQuery({ queryKey: ["views"], queryFn: () => getJson<SavedView[]>("/api/views") });
 
-  const sync = useMutation({
-    mutationFn: async () => {
-      const r = await fetch("/api/sync?job=all", { method: "POST" });
-      const body = await r.json().catch(() => []);
-      if (!r.ok) throw new Error((body as { message?: string }[]).filter((x) => x.message).map((x) => x.message).join("; ") || `HTTP ${r.status}`);
-      return body;
-    },
-    onSuccess: () => {
-      toaster.add({ name: "sync", title: "Данные обновлены", theme: "success", autoHiding: 4000 });
-      qc.invalidateQueries();
-    },
-    onError: (e) => toaster.add({ name: "sync", title: "Обновление с ошибками", content: String((e as Error).message).slice(0, 300), theme: "danger" }),
-  });
-
   const [saveOpen, setSaveOpen] = useState(false);
   const [viewName, setViewName] = useState("");
   const saveView = useMutation({
     mutationFn: async () => {
       const p = new URLSearchParams(params.toString());
       p.delete("p");
-      const r = await fetch("/api/views", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ name: viewName, query: p.toString() }) });
-      if (!r.ok) throw new Error("save failed");
+      saveViewLocal(viewName, p.toString());
     },
     onSuccess: () => {
       setSaveOpen(false);
@@ -148,7 +136,7 @@ export function EventsPage() {
     },
   });
   const deleteView = useMutation({
-    mutationFn: (id: string) => fetch(`/api/views/${id}`, { method: "DELETE" }),
+    mutationFn: async (id: string) => deleteViewLocal(id),
     onSuccess: () => qc.invalidateQueries({ queryKey: ["views"] }),
   });
 
@@ -197,10 +185,11 @@ export function EventsPage() {
               { text: "Сохранить текущие фильтры…", action: () => setSaveOpen(true) },
             ]}
           />
-          <Button href={`/api/events/export?${apiParams}`} target="_blank">
+          <Button onClick={() => void downloadCsv(new URLSearchParams(apiParams))}>
             <Icon data={ArrowDownToLine} /> CSV
           </Button>
-          <Button view="outlined" loading={sync.isPending} onClick={() => sync.mutate()} title="Скачать свежие ЕКП и календарь ФСП">
+          {/* синк идёт в GitHub Actions по расписанию; кнопка — ручной запуск workflow */}
+          <Button view="outlined" href={SYNC_URL} target="_blank" title="Запустить синхронизацию в GitHub Actions (Run workflow)">
             <Icon data={ArrowRotateRight} /> Обновить
           </Button>
         </div>

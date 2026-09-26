@@ -1,11 +1,11 @@
 "use client";
 
 import { Button, Card, Text, TextInput } from "@gravity-ui/uikit";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Suspense, useState } from "react";
+import { BASE_PATH, login } from "@/lib/client/data";
 
 function LoginForm() {
-  const router = useRouter();
   const next = useSearchParams()?.get("next") || "/";
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -14,10 +14,12 @@ function LoginForm() {
     e.preventDefault();
     setLoading(true);
     setError("");
-    const res = await fetch("/api/auth/login", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ password }) });
+    // пароль проверяется расшифровкой данных прямо в браузере
+    const ok = await login(password).catch(() => false);
     setLoading(false);
-    if (res.ok) router.replace(next.startsWith("/") ? next : "/");
-    else setError((await res.json().catch(() => ({})))?.error ?? "Ошибка входа");
+    // полная загрузка: запросы, упавшие до входа, не должны остаться в кэше
+    if (ok) location.replace(BASE_PATH + (next.startsWith("/") ? next : "/"));
+    else setError("Неверный пароль");
   };
   return (
     <div className="login-wrap">

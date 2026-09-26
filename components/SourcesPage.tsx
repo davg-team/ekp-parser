@@ -40,7 +40,7 @@ export function SourcesPage() {
           <div key={i} style={{ display: "flex", gap: 8, alignItems: "baseline", marginBottom: 4 }}>
             <span className="muted" style={{ minWidth: 120 }}>{fmtDateTime(r.at)}</span>
             <Label size="xs" theme={KIND[r.kind][1]}>{KIND[r.kind][0]}</Label>
-            <AppLink href={`/events/${encodeURIComponent(r.eventId)}`}>{r.name}</AppLink>
+            <AppLink href={`/event/?id=${encodeURIComponent(r.eventId)}`}>{r.name}</AppLink>
             {r.kind === "changed" && <span className="muted">({Object.keys(r.changes).join(", ")})</span>}
           </div>
         ))}

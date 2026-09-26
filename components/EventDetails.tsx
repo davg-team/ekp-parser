@@ -113,7 +113,7 @@ export function EventDetails({ id }: { id: string }) {
           </Text>
           {related.map((r) => (
             <div key={r.id}>
-              <AppLink href={`/events/${encodeURIComponent(r.id)}`}>{r.name}</AppLink>{" "}
+              <AppLink href={`/event/?id=${encodeURIComponent(r.id)}`}>{r.name}</AppLink>{" "}
               <span className="muted">· {fmtPeriod(r.dateFrom, r.dateTo)}</span>
             </div>
           ))}

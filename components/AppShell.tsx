@@ -5,9 +5,10 @@ import { AsideHeader, FooterItem, MobileHeader } from "@gravity-ui/navigation";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useThemeMode } from "./Providers";
+import { logout as logoutLocal } from "@/lib/client/data";
 
 const NAV = [
-  { id: "events", title: "Мероприятия", icon: Calendar, path: "/", match: (p: string) => p === "/" || p.startsWith("/events") },
+  { id: "events", title: "Мероприятия", icon: Calendar, path: "/", match: (p: string) => p === "/" || p.startsWith("/event") },
   { id: "federations", title: "Отделения ФСП", icon: Persons, path: "/federations", match: (p: string) => p.startsWith("/federations") },
   { id: "sources", title: "Источники и история", icon: ClockArrowRotateLeft, path: "/sources", match: (p: string) => p.startsWith("/sources") },
 ];
@@ -33,9 +34,9 @@ export function AppShell({ children }: { children: React.ReactNode }) {
 
   if (pathname.startsWith("/login")) return <>{children}</>;
 
-  const logout = async () => {
-    await fetch("/api/auth/logout", { method: "POST" });
-    router.push("/login");
+  const logout = () => {
+    logoutLocal();
+    router.push("/login/");
   };
   const themeItem = { id: "theme", title: theme === "dark" ? "Светлая тема" : "Тёмная тема", icon: theme === "dark" ? Sun : Moon, onItemClick: toggle };
   const logo = { text: "ЕКП · Спорт. программирование", icon: Calendar, onClick: () => router.push("/") };

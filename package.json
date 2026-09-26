@@ -7,12 +7,13 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "next dev -p 3000",
-    "build": "next build",
-    "start": "next start",
+    "dev": "tsx scripts/build-data.ts && next dev -p 3000",
+    "build": "tsx scripts/build-data.ts && next build",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
-    "sync": "tsx scripts/sync.ts"
+    "sync": "tsx scripts/sync.ts",
+    "build:data": "tsx scripts/build-data.ts",
+    "preview": "npx serve out"
   },
   "dependencies": {
     "@gravity-ui/date-components": "^4.1.0",

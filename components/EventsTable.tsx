@@ -74,7 +74,7 @@ export function EventsTable({ items, sort, onSort, today }: { items: EventRow[];
         meta: { sort: true },
         template: (e) => (
           <div className="cell-name">
-            <AppLink href={`/events/${encodeURIComponent(e.id)}`} view="primary">{e.name}</AppLink>
+            <AppLink href={`/event/?id=${encodeURIComponent(e.id)}`} view="primary">{e.name}</AppLink>
             <div style={{ display: "flex", gap: 4, flexWrap: "wrap", marginTop: 4 }}>
               <Label size="xs" theme="utility">{e.level}</Label>
               <Label size="xs" theme={e.source === "ekp" ? "clear" : e.source === "fsp" ? "warning" : "info"}>{SOURCE_LABEL[e.source]}</Label>
