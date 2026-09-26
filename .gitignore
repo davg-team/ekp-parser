@@ -1,9 +1,10 @@
 node_modules/
 .next/
 out/
-deploy/
-deploy.zip
 .data/
+# собирается из data/dataset.json (scripts/build-data.ts)
+public/data.json
+public/data.enc
 *.tsbuildinfo
 next-env.d.ts
 .env*.local

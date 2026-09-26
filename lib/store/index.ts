@@ -3,8 +3,8 @@ import { dirname } from "node:path";
 import type { Dataset } from "../types";
 
 /**
- * Всё состояние сервиса — один JSON (сотни мероприятий, килобайты).
- * Локально — файл, в облаке — объект в Object Storage.
+ * Всё состояние — один JSON в репозитории (data/dataset.json): его обновляет
+ * синк в GitHub Actions, сайт на GitHub Pages собирается из него.
  */
 export interface Store {
   load(): Promise<{ data: Dataset; etag: string | null }>;
@@ -38,7 +38,8 @@ export class FileStore implements Store {
     if (cur.etag !== ifMatch) throw new ConflictError("dataset changed concurrently");
     await mkdir(dirname(this.path), { recursive: true });
     const tmp = `${this.path}.tmp`;
-    await writeFile(tmp, JSON.stringify(data));
+    // с переносами строк — чтобы коммиты синка давали читаемый дифф
+    await writeFile(tmp, JSON.stringify(data, null, 1) + "\n");
     await rename(tmp, this.path);
   }
 }
@@ -49,56 +50,10 @@ function hash(s: string): string {
   return (h >>> 0).toString(16);
 }
 
-const METADATA_TOKEN_URL = "http://169.254.169.254/computeMetadata/v1/instance/service-accounts/default/token";
-let tokenCache: { token: string; exp: number } | null = null;
-
-/** IAM-токен: YC_IAM_TOKEN (локально, `yc iam create-token`) или метаданные функции. */
-export async function iamToken(): Promise<string> {
-  if (process.env.YC_IAM_TOKEN) return process.env.YC_IAM_TOKEN;
-  if (tokenCache && tokenCache.exp > Date.now() + 60_000) return tokenCache.token;
-  const res = await fetch(METADATA_TOKEN_URL, { headers: { "Metadata-Flavor": "Google" } });
-  if (!res.ok) throw new Error(`metadata token: HTTP ${res.status}`);
-  const j = (await res.json()) as { access_token: string; expires_in: number };
-  tokenCache = { token: j.access_token, exp: Date.now() + j.expires_in * 1000 };
-  return j.access_token;
-}
-
-/** Yandex Object Storage: IAM-токен в X-YaCloud-SubjectToken, условная запись по ETag. */
-export class ObjectStorageStore implements Store {
-  constructor(
-    private bucket: string,
-    private key: string,
-    private endpoint = "https://storage.yandexcloud.net",
-  ) {}
-  private url() {
-    return `${this.endpoint}/${this.bucket}/${this.key.split("/").map(encodeURIComponent).join("/")}`;
-  }
-  async load() {
-    const res = await fetch(this.url(), { headers: { "X-YaCloud-SubjectToken": await iamToken() } });
-    if (res.status === 404) return { data: emptyDataset(), etag: null };
-    if (!res.ok) throw new Error(`storage GET: HTTP ${res.status} ${await res.text()}`);
-    return { data: normalize((await res.json()) as Partial<Dataset>), etag: res.headers.get("etag") };
-  }
-  async save(data: Dataset, ifMatch: string | null) {
-    const headers: Record<string, string> = {
-      "X-YaCloud-SubjectToken": await iamToken(),
-      "content-type": "application/json",
-    };
-    if (ifMatch) headers["if-match"] = ifMatch;
-    else headers["if-none-match"] = "*";
-    const res = await fetch(this.url(), { method: "PUT", headers, body: JSON.stringify(data) });
-    if (res.status === 412) throw new ConflictError("dataset changed concurrently");
-    if (!res.ok) throw new Error(`storage PUT: HTTP ${res.status} ${await res.text()}`);
-  }
-}
-
 let store: Store | null = null;
 export function getStore(): Store {
   if (store) return store;
-  const bucket = process.env.DATA_BUCKET;
-  store = bucket
-    ? new ObjectStorageStore(bucket, process.env.DATA_KEY ?? "data/dataset.json")
-    : new FileStore(process.env.DATA_FILE ?? ".data/dataset.json");
+  store = new FileStore(process.env.DATA_FILE ?? "data/dataset.json");
   return store;
 }
 
@@ -118,7 +73,6 @@ export async function mutate<T>(fn: (d: Dataset) => T | Promise<T>): Promise<T> 
   }
 }
 
-// Кеш чтения для API: в тёплом контейнере не тянем JSON на каждый запрос.
 let cached: { data: Dataset; at: number } | null = null;
 const TTL_MS = 30_000;
 export async function readDataset(): Promise<Dataset> {
