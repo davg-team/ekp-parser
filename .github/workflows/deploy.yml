@@ -1,0 +1,64 @@
+name: Deploy
+
+# Публикует новую версию функции. Ресурсы и переменные окружения функции создаёт
+# scripts/yc-bootstrap.sh; здесь только код, окружение наследуется от прошлой версии.
+# Вход в облако — по OIDC (федерация github в каталоге), без статических ключей.
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: vars.YC_FOLDER_ID != ''
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test
+      - run: ./scripts/package.sh
+
+      # Статика отдаётся шлюзом прямо из бакета — она должна появиться раньше новой версии.
+      - name: Upload static
+        uses: DmitryKolyadin/yc-obj-storage-upload@v4
+        with:
+          yc-sa-id: ${{ vars.YC_CI_SERVICE_ACCOUNT_ID }}
+          bucket: ${{ vars.YC_BUCKET_NAME }}
+          root: .next/static
+          prefix: assets/_next/static
+          include: |
+            **
+          cache-control: |
+            *: public, max-age=31536000, immutable
+          skip-unchanged: true
+          fail-on-error: true
+
+      - name: Deploy function
+        uses: DmitryKolyadin/yc-sls-function@v4
+        with:
+          yc-sa-id: ${{ vars.YC_CI_SERVICE_ACCOUNT_ID }}
+          folder-id: ${{ vars.YC_FOLDER_ID }}
+          function-name: ekp-parser
+          bucket: ${{ vars.YC_BUCKET_NAME }}
+          bucket-object-name: releases/app.zip
+          inherit-from-previous-version: true
+          source-root: deploy
+          include: |
+            .
+
+      - name: Smoke test
+        run: curl -fsS "${{ vars.YC_APP_URL }}/api/health"

@@ -1,0 +1,39 @@
+{
+  "name": "ekp-parser",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.34.4",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "next dev -p 3000",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "sync": "tsx scripts/sync.ts"
+  },
+  "dependencies": {
+    "@gravity-ui/date-components": "^4.1.0",
+    "@gravity-ui/date-utils": "^2.7.2",
+    "@gravity-ui/icons": "^2.22.0",
+    "@gravity-ui/navigation": "^7.0.0",
+    "@gravity-ui/uikit": "7.50.1",
+    "@tanstack/react-query": "^5.103.3",
+    "next": "16.3.6",
+    "node-html-parser": "^9.0.4",
+    "pdfjs-dist": "6.3.289",
+    "react": "19.2.8",
+    "react-dom": "19.2.8",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@types/node": "^22.20.4",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "tsx": "^4.23.15",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.2"
+  }
+}

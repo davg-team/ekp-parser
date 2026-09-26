@@ -1,0 +1,99 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+.app-content {
+  padding: 20px 28px 40px;
+  box-sizing: border-box;
+  min-width: 0;
+}
+.app-content_mobile {
+  padding: 12px;
+}
+.page-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.quick-filters {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+.fb-group {
+  border-left: 3px solid var(--g-color-line-brand);
+  padding: 8px 0 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.fb-group_or {
+  border-left-color: var(--g-color-line-warning);
+}
+.fb-group_not {
+  background: var(--g-color-base-danger-light);
+}
+.fb-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.events-table {
+  width: 100%;
+  overflow-x: auto;
+}
+.events-table .g-table {
+  width: 100%;
+}
+.row-past td {
+  color: var(--g-color-text-secondary);
+}
+.row-removed td {
+  text-decoration: line-through;
+  color: var(--g-color-text-hint);
+}
+.cell-name {
+  min-width: 320px;
+  max-width: 480px;
+  white-space: normal;
+}
+.muted {
+  color: var(--g-color-text-secondary);
+}
+.kv {
+  display: grid;
+  grid-template-columns: 200px 1fr;
+  gap: 6px 16px;
+}
+@media (max-width: 700px) {
+  .kv {
+    grid-template-columns: 1fr;
+  }
+}
+.login-wrap {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.diff-from {
+  color: var(--g-color-text-danger);
+  text-decoration: line-through;
+}
+.diff-to {
+  color: var(--g-color-text-positive);
+}

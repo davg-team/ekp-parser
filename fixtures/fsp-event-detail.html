@@ -1,0 +1,1323 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/bitrix/cache/css/s1/fsp/page_7b134717e4ee89509dc08e06db5f24f2/page_7b134717e4ee89509dc08e06db5f24f2_v1.css?1759239370395" type="text/css"  rel="stylesheet" />
+<link href="/bitrix/cache/css/s1/fsp/template_c3cf341f59f389cdcee02a5826a1c4c7/template_c3cf341f59f389cdcee02a5826a1c4c7_v1.css?17592379127322" type="text/css"  data-template-style="true" rel="stylesheet" />
+<script>if(!window.BX)window.BX={};if(!window.BX.message)window.BX.message=function(mess){if(typeof mess==='object'){for(let i in mess) {BX.message[i]=mess[i];} return true;}};</script>
+<script>(window.BX||top.BX).message({"JS_CORE_LOADING":"Загрузка...","JS_CORE_NO_DATA":"- Нет данных -","JS_CORE_WINDOW_CLOSE":"Закрыть","JS_CORE_WINDOW_EXPAND":"Развернуть","JS_CORE_WINDOW_NARROW":"Свернуть в окно","JS_CORE_WINDOW_SAVE":"Сохранить","JS_CORE_WINDOW_CANCEL":"Отменить","JS_CORE_WINDOW_CONTINUE":"Продолжить","JS_CORE_H":"ч","JS_CORE_M":"м","JS_CORE_S":"с","JSADM_AI_HIDE_EXTRA":"Скрыть лишние","JSADM_AI_ALL_NOTIF":"Показать все","JSADM_AUTH_REQ":"Требуется авторизация!","JS_CORE_WINDOW_AUTH":"Войти","JS_CORE_IMAGE_FULL":"Полный размер"});</script>
+
+<script src="/bitrix/js/main/core/core.min.js?1747908999225353"></script>
+
+<script>BX.Runtime.registerExtension({"name":"main.core","namespace":"BX","loaded":true});</script>
+<script>BX.setJSList(["\/bitrix\/js\/main\/core\/core_ajax.js","\/bitrix\/js\/main\/core\/core_promise.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/loadext\/loadext.js","\/bitrix\/js\/main\/loadext\/extension.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/includes\/js\/includes.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/ui\/polyfill\/closest\/js\/closest.js","\/bitrix\/js\/main\/polyfill\/fill\/main.polyfill.fill.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/core\/core.js","\/bitrix\/js\/main\/polyfill\/intersectionobserver\/js\/intersectionobserver.js","\/bitrix\/js\/main\/lazyload\/dist\/lazyload.bundle.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/parambag\/dist\/parambag.bundle.js"]);
+</script>
+<script>BX.Runtime.registerExtension({"name":"pull.protobuf","namespace":"BX","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"rest.client","namespace":"window","loaded":true});</script>
+<script>(window.BX||top.BX).message({"pull_server_enabled":"N","pull_config_timestamp":0,"shared_worker_allowed":"Y","pull_guest_mode":"N","pull_guest_user_id":0,"pull_worker_mtime":1747907765});(window.BX||top.BX).message({"PULL_OLD_REVISION":"Для продолжения корректной работы с сайтом необходимо перезагрузить страницу."});</script>
+<script>BX.Runtime.registerExtension({"name":"pull.client","namespace":"BX","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"pull","namespace":"window","loaded":true});</script>
+<script>(window.BX||top.BX).message({"LANGUAGE_ID":"ru","FORMAT_DATE":"DD.MM.YYYY","FORMAT_DATETIME":"DD.MM.YYYY HH:MI:SS","COOKIE_PREFIX":"BITRIX_SM","SERVER_TZ_OFFSET":"10800","UTF_MODE":"Y","SITE_ID":"s1","SITE_DIR":"\/","USER_ID":"","SERVER_TIME":1790394754,"USER_TZ_OFFSET":0,"USER_TZ_AUTO":"Y","bitrix_sessid":"aae6fdb2f4047d0a6f97b31d57ef0577"});</script>
+
+
+<script src="/bitrix/js/pull/protobuf/protobuf.js?1738167487274055"></script>
+<script src="/bitrix/js/pull/protobuf/model.js?173816748770928"></script>
+<script src="/bitrix/js/rest/client/rest.client.min.js?17381675089240"></script>
+<script src="/bitrix/js/pull/client/pull.client.min.js?174790776749849"></script>
+<script>BX.setJSList(["\/bitrix\/components\/bitrix\/search.title\/script.js","\/local\/templates\/fsp\/components\/bitrix\/menu\/horizontal_multilevel1\/script.js"]);</script>
+<script>BX.setCSSList(["\/local\/templates\/fsp\/components\/bitrix\/news\/calendar\/bitrix\/news.detail\/.default\/style.css","\/local\/templates\/fsp\/components\/bitrix\/search.title\/head_search\/style.css","\/local\/templates\/fsp\/components\/bitrix\/menu\/horizontal_multilevel1\/style.css","\/local\/templates\/fsp\/components\/bitrix\/main.feedback\/comment_footer\/style.css","\/local\/templates\/fsp\/template_styles.css"]);</script>
+<script>
+					(function () {
+						"use strict";
+
+						var counter = function ()
+						{
+							var cookie = (function (name) {
+								var parts = ("; " + document.cookie).split("; " + name + "=");
+								if (parts.length == 2) {
+									try {return JSON.parse(decodeURIComponent(parts.pop().split(";").shift()));}
+									catch (e) {}
+								}
+							})("BITRIX_CONVERSION_CONTEXT_s1");
+
+							if (cookie && cookie.EXPIRE >= BX.message("SERVER_TIME"))
+								return;
+
+							var request = new XMLHttpRequest();
+							request.open("POST", "/bitrix/tools/conversion/ajax_counter.php", true);
+							request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+							request.send(
+								"SITE_ID="+encodeURIComponent("s1")+
+								"&sessid="+encodeURIComponent(BX.bitrix_sessid())+
+								"&HTTP_REFERER="+encodeURIComponent(document.referrer)
+							);
+						};
+
+						if (window.frameRequestStart === true)
+							BX.addCustomEvent("onFrameDataReceived", counter);
+						else
+							BX.ready(counter);
+					})();
+				</script>
+
+
+
+<script  src="/bitrix/cache/js/s1/fsp/template_1fb2fbd6155d245cf5b36d6f8f440837/template_1fb2fbd6155d245cf5b36d6f8f440837_v1.js?17592379127898"></script>
+<script>var _ba = _ba || []; _ba.push(["aid", "7b003e491264ee1f275afe790003a811"]); _ba.push(["host", "fsp-russia.ru"]); (function() {var ba = document.createElement("script"); ba.type = "text/javascript"; ba.async = true;ba.src = (document.location.protocol == "https:" ? "https://" : "http://") + "bitrix.info/ba.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ba, s);})();</script>
+
+
+<title>Анонс</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="/completed_pages/css/custom.css?1181324297">
+    <link rel="stylesheet" href="/completed_pages/css/custom_device.css?1568449826">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Inter:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#FFFFFF">
+
+
+    <header class="desktop">
+        <div class="container">
+            <div class="row">
+                <div class="logo">
+                    <a href="/"><img src="/completed_pages/images/logo_head.svg" alt="logo"></a>
+                </div>
+                <div class="buttons_block">
+                    <div class="social">
+                        <div class="network vk">
+                            <a href="https://vk.com/russiafsp" target="_blank">
+                                <svg width="20.000000" height="12.000000" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <desc>
+                                        Created with Pixso.
+                                    </desc>
+                                    <defs/>
+                                    <path id="Vector" d="M10.59 11.84C4.09 11.84 0.15 7.33 0 -0.16L3.29 -0.16C3.39 5.34 5.89 7.67 7.81 8.15L7.81 -0.16L10.97 -0.16L10.97 4.59C12.82 4.38 14.75 2.22 15.41 -0.16L18.51 -0.16C18.01 2.77 15.9 4.93 14.41 5.82C15.91 6.54 18.31 8.43 19.23 11.84L15.82 11.84C15.1 9.56 13.33 7.79 10.97 7.55L10.97 11.84L10.59 11.84Z" fill="#EDEDED" fill-opacity="1.000000" fill-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="network telegram">
+                            <a href="https://t.me/fsprussia" target="_blank">
+                                <svg width="17.000000" height="14.000000" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <desc>
+                                        Created with Pixso.
+                                    </desc>
+                                    <defs/>
+                                    <path id="path5" d="M1 5.94C1 5.94 8.22 2.86 10.73 1.78C11.69 1.35 14.94 -0.04 14.94 -0.04C14.94 -0.04 16.45 -0.64 16.32 0.83C16.28 1.43 15.95 3.55 15.61 5.85C15.11 9.1 14.57 12.64 14.57 12.64C14.57 12.64 14.48 13.64 13.77 13.81C13.06 13.99 11.89 13.21 11.69 13.03C11.52 12.9 8.55 10.96 7.47 10C7.18 9.74 6.84 9.23 7.51 8.62C9.01 7.19 10.81 5.42 11.89 4.29C12.4 3.77 12.9 2.56 10.81 4.03C7.84 6.15 4.92 8.14 4.92 8.14C4.92 8.14 4.25 8.58 3 8.19C1.75 7.8 0.29 7.28 0.29 7.28C0.29 7.28 -0.72 6.63 1 5.94Z" fill="#EDEDED" fill-opacity="1.000000" fill-rule="nonzero"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="search ">
+                        	<div id="title-search">
+	<form action="/search/index.php">
+		<input id="title-search-input" type="text" name="q" value="" class="input" size="40" maxlength="50" autocomplete="off" />&nbsp;<input class="hidden" name="s" type="submit" value="Поиск" />
+	</form>
+	</div>
+<script>
+	BX.ready(function(){
+		new JCTitleSearch({
+			'AJAX_PAGE' : '/calendar/mezhdunarodnye-sportivnye-sorevnovaniya/',
+			'CONTAINER_ID': 'title-search',
+			'INPUT_ID': 'title-search-input',
+			'MIN_QUERY_LEN': 2
+		});
+	});
+</script>
+                        <!--<form>
+                            <input type="text" class="input" placeholder="Поиск">
+                        </form>-->
+                        <div class="icon">
+                            <svg width="36.000000" height="36.000000" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <desc>
+                                    Created with Pixso.
+                                </desc>
+                                <defs/>
+                                <rect id="user-profile-03" width="36.000000" height="36.000000" transform="translate(0.000000 -0.156517)" fill="#FFFFFF" fill-opacity="0"/>
+                                <path id="Icon" d="M13.7 25.25C14.81 25.72 15.97 25.95 17.18 25.95Q18.17 25.95 19.12 25.74Q19.91 25.57 20.65 25.25Q21.41 24.93 22.08 24.49Q22.84 23.99 23.49 23.34Q24.15 22.68 24.64 21.93Q25.09 21.25 25.41 20.5Q25.72 19.75 25.9 18.97Q26.11 18.02 26.11 17.02Q26.11 16.02 25.9 15.07Q25.72 14.29 25.41 13.54Q25.09 12.79 24.64 12.11Q24.15 11.36 23.49 10.7Q22.84 10.05 22.08 9.55Q21.41 9.11 20.65 8.79Q19.91 8.47 19.12 8.3Q18.17 8.09 17.18 8.09Q16.18 8.09 15.23 8.3Q14.45 8.47 13.7 8.79Q12.94 9.11 12.27 9.55Q11.51 10.05 10.86 10.7Q10.21 11.36 9.71 12.11Q9.27 12.79 8.95 13.54Q8.63 14.29 8.46 15.07Q8.25 16.02 8.25 17.02Q8.25 18.02 8.46 18.97Q8.63 19.75 8.95 20.5Q9.27 21.25 9.71 21.93Q10.21 22.68 10.86 23.34Q11.51 23.99 12.27 24.49Q12.94 24.93 13.7 25.25ZM18.83 24.27Q18.02 24.45 17.18 24.45Q16.33 24.45 15.53 24.27Q14.89 24.13 14.28 23.87Q13.66 23.61 13.11 23.24Q12.47 22.82 11.92 22.28Q11.37 21.73 10.96 21.09Q10.59 20.53 10.33 19.91Q10.07 19.3 9.93 18.67Q9.75 17.87 9.75 17.02Q9.75 16.17 9.93 15.37Q10.07 14.74 10.33 14.13Q10.59 13.51 10.96 12.95Q11.37 12.31 11.92 11.77Q12.47 11.22 13.11 10.8Q13.66 10.44 14.28 10.17Q14.89 9.91 15.53 9.77Q16.33 9.59 17.18 9.59Q18.02 9.59 18.83 9.77Q19.46 9.91 20.07 10.17Q20.69 10.44 21.25 10.8Q21.88 11.22 22.43 11.77Q22.98 12.31 23.4 12.95Q23.76 13.51 24.02 14.13Q24.28 14.74 24.43 15.37Q24.61 16.17 24.61 17.02Q24.61 17.87 24.43 18.67Q24.28 19.3 24.02 19.91Q23.76 20.53 23.4 21.09Q22.98 21.73 22.43 22.28Q21.88 22.82 21.25 23.24Q20.69 23.61 20.07 23.87Q19.46 24.13 18.83 24.27ZM27.53 26.31L24.25 23.04L23.19 24.1L26.46 27.37C26.76 27.67 27.23 27.67 27.53 27.37C27.82 27.07 27.82 26.61 27.53 26.31Z" fill="#1B1C21" fill-opacity="1.000000" fill-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <div class="log_in">
+                            <a href="">Войти</a>
+                        </div>
+                        <div class="registration">
+                            <a href="">Регистрация</a>
+                        </div>
+                    </div>
+                    <div class="language">
+                        <select name="lang" id="lang">
+                            <option value="rus">RU</option>
+                            <option value="eng">EN</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="menu">
+                    
+    <ul class="main">
+
+    
+    
+    
+        <li class="dop"><a href="/about/" class="root-item">О нас</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/#second">О Федерации</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/rukovodstvo">Руководство</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/member/">Как стать членом федерации</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/documents/">Документы</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/nationalteam/">Сборная России</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/cooperation/">Международное сотрудничество</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        <li class="dop"><a href="/region/" class="root-item">Регионы</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/region/regions/">Контакты представителей</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        <li class="dop"><a href="/calendar/" class="root-item-selected">Календарь</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/calendar/">Анонс</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/calendar/archive/">Архив событий</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        
+                            <li><a href="#" class="root-item">Статистика</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/antidoping/" class="root-item">Антидопинг</a></li>
+            
+        
+    
+    
+
+    
+    
+        <li class="dop"><a href="/press/" class="root-item">Пресс-служба</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/pressservice/">ФСП в СМИ</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/news/">Новости</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/photovideo/">Фото и видео</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/brandbook/">Брендбук</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/logotip/">Логотипы</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="#">Регламент взаимодействия со СМИ</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        
+                            <li><a href="/contacts/" class="root-item">Контакты</a></li>
+            
+        
+    
+    
+
+    
+    </ul>
+    <div class="menu-clear-left"></div>
+                    <!--<ul class="main">
+                        <li class="dop">
+                            <a href="">О нас</a>
+                            <ul class="submenu">
+                                <li><a href="">О Федерации</a></li>
+                                <li><a href="/completed_pages/rukovodstvo/index.php">Руководство</a></li>
+                                <li><a href="/completed_pages/member/index.php">Как стать членом федерации</a></li>
+                                <li><a href="/completed_pages/documents/index.php">Документы</a></li>
+                                <li><a href="/completed_pages/nationalteam/index.php">Сборная России</a></li>
+                                <li><a href="/completed_pages/cooperation/index.php">Международное сотрудничество</a></li>
+                            </ul>
+                        </li>
+                        <li class="dop">
+                            <a href="/completed_pages/regions/index.php">Регионы</a>
+                            <ul class="submenu">
+                                <li><a href="">Контакты представителей</a></li>
+                            </ul>
+                        </li>
+                        <li class="dop">
+                            <a href="">Календарь</a>
+                            <ul class="submenu">
+                                <li><a href="">Анонс</a></li>
+                                <li><a href="">Архив событий</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">Статистика</a></li>
+                        <li><a href="/completed_pages/antidoping/index.php">Антидопинг</a></li>
+                        <li class="dop">
+                            <a href="/completed_pages/pressservice/index.php">Пресс-служба</a>
+                            <ul class="submenu">
+                                <li><a href="/completed_pages/pressservice/index.php">ФСП в СМИ</a></li>
+                                <li><a href="">Регламент взаимодействия со СМИ</a></li>
+                                <li><a href="/completed_pages/contactspress/index.php">Контакты пресс-секретаря</a></li>
+                                <li><a href="/completed_pages/photovideo/index.php">Фото и видео</a></li>
+                                <li><a href="/completed_pages/brandbook/index.php">Брендбук</a></li>
+                                <li><a href="/completed_pages/logotip/index.php">Логотипы</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/completed_pages/contacts/index.php">Контакты</a></li>
+                    </ul>-->
+                </div>
+            </div>
+        </div>
+    </header>
+    <header class="mobile">
+        <div class="container">
+            <div class="row">
+                <div class="logo">
+                    <a href="/"><img src="/completed_pages/images/logo_mobile.svg" alt="logo"></a>
+                </div>
+                <div class="buttons">
+                    <!--<div class="log_in">
+                        <img src="/completed_pages/images/logblack.svg" alt="user">
+                    </div>-->
+                    <div class="btn_menu">
+
+                    </div>
+                </div>
+                <div class="click_menu">
+                    <div class="search">
+                        <form>
+                            <input type="text" placeholder="Что ищете?">
+                            <button type="submit">
+                                <img src="/completed_pages/images/search_btn.svg" alt="search">
+                            </button>
+                        </form>
+                    </div>
+                    <div class="menu">
+                        
+    <ul class="main">
+
+    
+    
+    
+        <li class="dop"><a href="/about/" class="root-item">О нас</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/#second">О Федерации</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/rukovodstvo">Руководство</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/member/">Как стать членом федерации</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/documents/">Документы</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/nationalteam/">Сборная России</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/cooperation/">Международное сотрудничество</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        <li class="dop"><a href="/region/" class="root-item">Регионы</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/region/regions/">Контакты представителей</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        <li class="dop"><a href="/calendar/" class="root-item-selected">Календарь</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/calendar/">Анонс</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/calendar/archive/">Архив событий</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        
+                            <li><a href="#" class="root-item">Статистика</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/antidoping/" class="root-item">Антидопинг</a></li>
+            
+        
+    
+    
+
+    
+    
+        <li class="dop"><a href="/press/" class="root-item">Пресс-служба</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/pressservice/">ФСП в СМИ</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/news/">Новости</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/photovideo/">Фото и видео</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/brandbook/">Брендбук</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/logotip/">Логотипы</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="#">Регламент взаимодействия со СМИ</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        
+                            <li><a href="/contacts/" class="root-item">Контакты</a></li>
+            
+        
+    
+    
+
+    
+    </ul>
+    <div class="menu-clear-left"></div>
+                        <!--<ul class="main">
+                            <li class="dop">
+                                <a href="">О нас</a>
+                                <ul class="submenu">
+                                    <li><a href="">О Федерации</a></li>
+                                    <li><a href="/completed_pages/rukovodstvo/index.php">Руководство</a></li>
+                                    <li><a href="/member/index.php">Как стать членом федерации</a></li>
+                                    <li><a href="/completed_pages/documents/index.php">Документы</a></li>
+                                    <li><a href="/completed_pages/nationalteam/index.php">Сборная России</a></li>
+                                    <li><a href="/completed_pages/cooperation/index.php">Международное сотрудничество</a></li>
+                                </ul>
+                            </li>
+                            <li class="dop">
+                                <a href="/completed_pages/regions/index.php">Регионы</a>
+                                <ul class="submenu">
+                                    <li><a href="">Контакты представителей</a></li>
+                                </ul>
+                            </li>
+                            <li class="dop">
+                                <a href="">Календарь</a>
+                                <ul class="submenu">
+                                    <li><a href="">Анонс</a></li>
+                                    <li><a href="">Архив событий</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="">Статистика</a></li>
+                            <li><a href="/completed_pages/antidoping/index.php">Антидопинг</a></li>
+                            <li class="dop">
+                                <a href="/completed_pages/pressservice/index.php">Пресс-служба</a>
+                                <ul class="submenu">
+                                    <li><a href="/completed_pages/pressservice/index.php">ФСП в СМИ</a></li>
+                                    <li><a href="">Регламент взаимодействия со СМИ</a></li>
+                                    <li><a href="/completed_pages/contactspress/index.php">Контакты пресс-секретаря</a></li>
+                                    <li><a href="/completed_pages/photovideo/index.php">Фото и видео</a></li>
+                                    <li><a href="/completed_pages/brandbook/index.php">Брендбук</a></li>
+                                    <li><a href="/completed_pages/logotip/index.php">Логотипы</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/completed_pages/contacts/index.php">Контакты</a></li>
+                        </ul>-->
+                    </div>
+                    <div class="contacts wid">
+                        <div class="title">
+                            <h3>Контакты</h3>
+                        </div>
+                        <div class="mail">
+                            <a href="mailto:info@fsp-russia.com">info@fsp-russia.com</a>
+                        </div>
+                        <div class="phone">
+                            <a href="tel:+74996780305">+7 (499) 678-03-05</a>
+                        </div>
+                        <div class="adress">
+                            <p>125047, г. Москва,</p>
+                            <p>2-я Брестская, д.8, этаж 9</p>
+                        </div>
+                    </div>
+                    <div class="social_lang">
+                        <div class="social_site wid">
+                            <div class="site">
+                                <a href="https://vk.com/russiafsp" target="_blank"><img src="/completed_pages/images/vk_mob.svg" alt="vk"></a>
+                            </div>
+                            <div class="site">
+                                <a href="https://t.me/fsprussia" target="_blank"><img src="/completed_pages/images/tel_mob.svg" alt="vk"></a>
+                            </div>
+                        </div>
+                        <div class="language">
+                            <div class="rus">
+                                <a href="">ru</a>
+                            </div>
+                            <div class="eng">
+                                <a href="">en</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+<div class="main">
+	<section class="member_federation calendar_detail">
+		<div class="banner">
+			<div class="container">
+				<div class="button_back">
+					<a href="/calendar/">
+						<div class="icon_back">
+							<svg width="44.000000" height="44.000000" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+								<desc>
+									Created with Pixso.
+								</desc>
+								<defs>
+									<clipPath id="clip466_71148">
+										<rect id="month" rx="5.500000" width="43.000000" height="43.000000" transform="translate(0.500000 0.500000)" fill="white" fill-opacity="0" />
+									</clipPath>
+								</defs>
+								<rect id="month" rx="5.500000" width="43.000000" height="43.000000" transform="translate(0.500000 0.500000)" fill="#2D2E37" fill-opacity="0.100000" />
+								<g clip-path="url(#clip466_71148)">
+									<path id="&lt;" d="M18.35 23.51L25.23 26.96L25.23 25.51L20.28 23.07Q20 22.92 19.73 22.82Q19.46 22.71 19.32 22.68Q19.44 22.65 19.71 22.55Q19.97 22.44 20.28 22.3L25.23 19.87L25.23 18.48L18.35 21.92L18.35 23.51Z" fill="#1B1C21" fill-opacity="1.000000" fill-rule="evenodd" />
+								</g>
+								<rect id="month" rx="5.500000" width="43.000000" height="43.000000" transform="translate(0.500000 0.500000)" stroke="#2D2E37" stroke-opacity="1.000000" stroke-width="1.000000" />
+							</svg>
+
+						</div>
+						Вернуться в календарь
+					</a>
+				</div>
+
+
+				<div class="row detail">
+					<div class="items_cal">
+						<div class="item_cal date">
+							<p>11.09.2026-17.09.2026</p>
+						</div>
+						<div class="item_cal hybrid">
+							<p>Оффлайн</p>
+						</div>
+						<div class="item_cal city">
+							<p>Екатеринбург</p>
+						</div>
+					</div>
+					<div class="title_cal">
+						<h1>Международные спортивные соревнования</h1>
+					</div>
+				</div>
+
+				<div class="row logo_part">
+					<div class="logo">
+						<img src="/completed_pages/images/logo1_b.svg" alt="logo">
+					</div>
+					<div class="logo">
+						<img src="/completed_pages/images/logo2_b.svg" alt="logo">
+					</div>
+					<div class="logo">
+						<img src="/completed_pages/images/logo3_b.svg" alt="logo">
+					</div>
+					<div class="logo">
+						<img src="/completed_pages/images/logo1_b.svg" alt="logo">
+					</div>
+					<div class="logo">
+						<img src="/completed_pages/images/logo1_b.svg" alt="logo">
+					</div>
+					<div class="logo">
+						<img src="/completed_pages/images/logo2_b.svg" alt="logo">
+					</div>
+					<div class="logo">
+						<img src="/completed_pages/images/logo3_b.svg" alt="logo">
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="container">
+
+			<div class="row">
+				<div class="col-6"></div>
+				<div class="col-6">
+					<div class="opis">
+											</div>
+
+					<div class="text_min">
+										</div>
+
+		
+							
+									</div>
+			</div>
+		</div>
+	</section>
+
+
+
+	
+
+<section id="fifth" class="fifth calendar_slider">
+		<div class="container">
+			<div class="row">
+				<div class="title">
+					<h2>ФСП в СМИ</h2>
+				</div>
+				<div class="slider__smi">
+                        					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/685/9c5ch31th9foux01zvjjxaea268ec2ie.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://www.sovsport.ru/game_types/news/v-kislovodske-zavershilis-pervye-sbory-sbornoj-rossii-po-sportivnomu-programmirovaniyu">Советский спорт</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> июля 2026</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://www.sovsport.ru/game_types/news/v-kislovodske-zavershilis-pervye-sbory-sbornoj-rossii-po-sportivnomu-programmirovaniyu">В Кисловодске завершились первые сборы сборной России по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/420/h4m3aoyv4k5x7byj56nxce3d37ke4myz.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://bookmaker-ratings.ru/news/federatsiya-sportivnogo-programmirovaniya-prisoedinilas-k-rukodu/">РБ спорт</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> июня 2026</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://bookmaker-ratings.ru/news/federatsiya-sportivnogo-programmirovaniya-prisoedinilas-k-rukodu/">Федерация спортивного программирования присоединилась к «РуКоду»</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/685/9c5ch31th9foux01zvjjxaea268ec2ie.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://www.sovsport.ru/chronicles/news/final-kubka-po-sportivnomu-programmirovaniyu-v-disczipline-programmirovanie-robototehniki-projdyot-v-sankt-peterburge">Советский спорт</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> июня 2026</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://www.sovsport.ru/chronicles/news/final-kubka-po-sportivnomu-programmirovaniyu-v-disczipline-programmirovanie-robototehniki-projdyot-v-sankt-peterburge">Финал Кубка по спортивному программированию в дисциплине «Программирование робототехники» пройдёт в Санкт-Петербурге</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/181/o2aipal1bvve4z859m4k5j2iilrty951.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://sarpan.ru/articles/19-novosti/39356-silneishie_programmisty_so_vsei_strany_priehali_v_saratov/?ysclid=mfv5joqbbv330193262">Панорама Саратова</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> сентября 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://sarpan.ru/articles/19-novosti/39356-silneishie_programmisty_so_vsei_strany_priehali_v_saratov/?ysclid=mfv5joqbbv330193262">Сильнейшие программисты со всей страны приехали в Саратов</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/05d/xzdkz391cbr6viaeru5lfpxa2jeoy1xy.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://gtrk-saratov.ru/bystree-tekhnologichnee-umnee-vpervye-saratov-prinyal-kubok-rossii-po-sportivnomu-programmirovaniyu?ysclid=mfv5j1sc2211431240">ГТРК &quot;САРАТОВ&quot;</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> сентября 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://gtrk-saratov.ru/bystree-tekhnologichnee-umnee-vpervye-saratov-prinyal-kubok-rossii-po-sportivnomu-programmirovaniyu?ysclid=mfv5j1sc2211431240">Быстрее, технологичнее, умнее. Впервые Саратов принял Кубок России по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/ec9/gioel6gsa3nmd4i9jz34bw0uu2uo6ygw.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://zwezda.su/article/robokod-soberet-v-permi-luchshih-sportivnyh-programmistov">ЗВЕЗДА</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> сентября 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://zwezda.su/article/robokod-soberet-v-permi-luchshih-sportivnyh-programmistov">​«РобоКод» соберет в Перми лучших спортивных программистов</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/9f5/44lncovvcy5b3abnqesnw2dgw4htqe31.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://dagpravda.ru/obrazovanie/na-styke-ii-fiziki-i-matematiki-kak-dagestanskie-shkolniki-pokorili-hakaton-mifi/">&quot;Дагестанская правда&quot;</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> августа 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://dagpravda.ru/obrazovanie/na-styke-ii-fiziki-i-matematiki-kak-dagestanskie-shkolniki-pokorili-hakaton-mifi/">Как дагестанские школьники покорили хакатон МИФИ</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/7ca/1296w05atokvwuq5nnm4s2mzwycj6g5n.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://riastrela.ru/p/195656/?special=Y">РИА Стрела</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> июля 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://riastrela.ru/p/195656/?special=Y">На Брянщине появились кандидаты в мастера спорта по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/ef2/c2jo6pv41eoygk0zso0g5jkmel6rhai3.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://www.stu.lipetsk.ru/news/prepodavateli-lgtu-poluchili-kvalifikaczionnuyu-kategoriyu-sportivnyij-sudya-vtoroj-kategorii-po-vidu-sporta-sportivnoe-programmirovanie.html">ЛИПЕЦКИЙ ГОСУДАРСТВЕННЫЙ ТЕХНИЧЕСКИЙ УНИВЕРСИТЕТ</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> июня 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://www.stu.lipetsk.ru/news/prepodavateli-lgtu-poluchili-kvalifikaczionnuyu-kategoriyu-sportivnyij-sudya-vtoroj-kategorii-po-vidu-sporta-sportivnoe-programmirovanie.html">Преподаватели ЛГТУ получили квалификационную категорию &quot;Спортивный судья второй категории&quot; </a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/52a/wrm90incm8pcav4n3rruy1p0s28rluw0.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://its.admin-smolensk.ru/novosti-i-meropriyatiya/news/podvedeny-itogi-kubka-rossii-po-sportivnomu-programmirovaniyu-v-smolenske/">its.admin-smolensk.ru</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> мая 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://its.admin-smolensk.ru/novosti-i-meropriyatiya/news/podvedeny-itogi-kubka-rossii-po-sportivnomu-programmirovaniyu-v-smolenske/">В Смоленске подвели итоги Кубка России по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/c11/68vzsbr2004o7607imdywpbretfwiaow.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://www.mk-smolensk.ru/social/2025/05/23/v-smolenske-podveli-itogi-kubka-rossii-po-sportivnomu-programmirovaniyu.html">mk-smolensk.ru</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> мая 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://www.mk-smolensk.ru/social/2025/05/23/v-smolenske-podveli-itogi-kubka-rossii-po-sportivnomu-programmirovaniyu.html">В Смоленске подвели итоги Кубка России по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/ec0/3hggr8a3o8hrr2jlfhx54iic7mm8t7xj.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://www.admin-smolensk.ru/novosti/news/v-smolenske-prohodit-final-kubka-rossii-po-sportivnomu-programmirovaniyu/">www.admin-smolensk.ru</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> мая 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://www.admin-smolensk.ru/novosti/news/v-smolenske-prohodit-final-kubka-rossii-po-sportivnomu-programmirovaniyu/">В Смоленске проходит финал Кубка России по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/f6e/npxjp8vrjybrubg3wybcghzmt6gv2cqe.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://smolgazeta.ru/daylynews/128989-smolenskaya-komanda-stala-finalistom-kubka.html">smolgazeta.ru</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> мая 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://smolgazeta.ru/daylynews/128989-smolenskaya-komanda-stala-finalistom-kubka.html">Смоленская команда стала финалистом Кубка России по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/fd5/kgofdxprs7bawx23yk1adflqn8rcgx0f.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://smolensk-i.ru/society/tehnologii/v-smolenske-podveli-itogi-kubka-rossii-po-sportivnomu-programmirovaniyu_593398?ysclid=mb598867ma172002201">smolensk-i.ru</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> мая 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://smolensk-i.ru/society/tehnologii/v-smolenske-podveli-itogi-kubka-rossii-po-sportivnomu-programmirovaniyu_593398?ysclid=mb598867ma172002201">В Смоленске подвели итоги Кубка России по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/6e4/5ma5f79284lfwq21h6qb04g1nnghfw7x.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://www.rabochy-put.ru/news/199851-v-smolenske-vybrali-pobediteley-kubka-po-sportivnomu-programmirovaniyu.html">rabochy-put.ru</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> мая 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://www.rabochy-put.ru/news/199851-v-smolenske-vybrali-pobediteley-kubka-po-sportivnomu-programmirovaniyu.html">В Смоленске выбрали победителей Кубка по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/0a3/tlsk0qxchntg2eht4096cys62rr3y1d1.png" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://readovka67.ru/news/227314?ysclid=mb59bx6at299488398">readovka67.ru</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> мая 2025</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://readovka67.ru/news/227314?ysclid=mb59bx6at299488398">В Смоленске проходит финал Кубка России по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/8eb/g3fsugrlkkyyk6hlcr65ukhidswusulg.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://360tv.ru">360tv.ru</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> марта 2024</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://360tv.ru">Код победителя. Финал «Игр будущего» по спортивному программированию прошел в Казани</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/aaa/yo00gdyfghfbyfrc1gk3vi4pvnx2tbyz.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://amp.ren.tv">amp.ren.tv</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> февраля 2024</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://amp.ren.tv">Спортивное программирование набирает популярность в России</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/2b5/rtb5jbw4rsm4rnzlvhu0spggb6wm2ymm.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://tass.ru">tass.ru</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> декабря 2023</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://tass.ru">В Минспорте назвали уникальным событием чемпионат России по спортивному программированию</a>
+						</div>
+					</div>
+                            					<div class="slide_smi">
+						<a href="">
+							<div class="logo black">
+								<img src="/upload/iblock/675/m7oeiikardhz1pjye58w0o1ofeaiuguv.svg" alt="logo">
+							</div>
+						</a>
+						<div class="data_block">
+							<div class="name">
+								<a href="https://pervoe.online">pervoe.online</a>
+							</div>
+							<div class="date">
+								<p>?=$dateexp[0]?> марта 2023</p>
+							</div>
+						</div>
+						<div class="info">
+							<a href="https://pervoe.online">На «Играх Будущего» прошел турнир по спортивному программированию</a>
+						</div>
+					</div>
+                    				</div>
+			</div>
+
+
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script>
+	
+$( document ).ready(function() {
+  // Handler for .ready() called.
+  $('body').addClass('white_calendar');
+});
+</script>
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <img src="/completed_pages/images/logo_foot.svg" alt="logo">
+            </div>
+            <div class="button_up">
+                <p>Наверх</p>
+                <div class="btn" id="button_up">
+                    <a href="#">
+                        <svg width="11.000000" height="6.000000" viewBox="0 0 11 6" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <desc>
+                                Created with Pixso.
+                            </desc>
+                            <defs/>
+                            <path id="Icon" d="M0 5L5 0L10 5" stroke="#FFFFFF" stroke-opacity="1.000000"
+                                  stroke-width="1.000000" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="contacts wid">
+                    <div class="title">
+                        <h3>Контакты</h3>
+                    </div>
+                    <div class="mail">
+                        <a href="mailto:info@fsp-russia.ru">info@fsp-russia.ru</a>
+                    </div>
+                    <div class="phone">
+                        <a href="tel:+74996780305">+7 (499) 678-03-05</a>
+                    </div>
+                    <div class="adress">
+                        <p>125047, г. Москва,</p>
+                        <p>2-я Брестская, д.8, этаж 9</p>
+                    </div>
+                </div>
+                <div class="press_center wid">
+                    <div class="title">
+                        <h3>Пресс-служба</h3>
+                    </div>
+                    <div class="mail">
+                        <a href="mailto:press@fsp-russia.ru">press@fsp-russia.ru</a>
+                    </div>
+                    <div class="phone">
+                        <a href="tel:+79165282431"></a>
+                    </div>
+                </div>
+                <div class="qr_code wid">
+                    <div class="image">
+                        <img src="/completed_pages/images/vk_foot.svg" alt="qrcode">
+                    </div>
+                    <div class="image">
+                        <img src="/completed_pages/images/telegram_foot.svg" alt="qrcode">
+                    </div>
+                </div>
+                <div class="social_site wid">
+                    <div class="title">
+                        <h3>Социальные сети</h3>
+                    </div>
+                    <div class="site">
+                        <a href="https://vk.com/russiafsp" target="_blank">vk.com/russiafsp</a>
+                    </div>
+                    <div class="site">
+                        <a href="https://t.me/fsprussia" target="_blank">t.me/fsprussia</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="title">
+                    <h3>Помогите сделать сервис лучше, напишите отзыв</h3>
+                </div>
+                
+
+<form action="/calendar/mezhdunarodnye-sportivnye-sorevnovaniya/" method="POST">
+<input type="hidden" name="sessid" id="sessid" value="aae6fdb2f4047d0a6f97b31d57ef0577" />		<textarea name="MESSAGE" placeholder="Предлагаю ..." rows="5" cols="40"></textarea>
+
+	<input type="hidden" name="PARAMS_HASH" value="223a678437de01e68df2a39259c6b7e2">
+	<input type="submit" name="submit" value="Отправить">
+</form>
+<!--                <form action="">
+                    <textarea name="message" id="comment" placeholder="Предлагаю ..."></textarea>
+                    <input type="submit" name="submit">
+                </form>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="politika">
+                <a href="/files/Положение%20обработка%20пдн%20(1).pdf">Политика конфиденциальности</a>
+            </div>
+            <div class="polzovanie">
+                <a href="">Условия соглашения</a>
+            </div>
+            <div class="name">
+                <p>Федерация спортивного программирования России</p>
+            </div>
+            <div class="year">
+                <p>©2025</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+<script type="text/javascript" src="/completed_pages/js/custom.js?683078198"></script>
+
+
+<script>
+    AOS.init();
+</script>
+
+
+</body>
+</html>

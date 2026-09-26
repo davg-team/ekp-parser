@@ -1,0 +1,3437 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link href="/bitrix/cache/css/s1/fsp/template_c3cf341f59f389cdcee02a5826a1c4c7/template_c3cf341f59f389cdcee02a5826a1c4c7_v1.css?17592379127322" type="text/css"  data-template-style="true" rel="stylesheet" />
+<script>if(!window.BX)window.BX={};if(!window.BX.message)window.BX.message=function(mess){if(typeof mess==='object'){for(let i in mess) {BX.message[i]=mess[i];} return true;}};</script>
+<script>(window.BX||top.BX).message({"JS_CORE_LOADING":"Загрузка...","JS_CORE_NO_DATA":"- Нет данных -","JS_CORE_WINDOW_CLOSE":"Закрыть","JS_CORE_WINDOW_EXPAND":"Развернуть","JS_CORE_WINDOW_NARROW":"Свернуть в окно","JS_CORE_WINDOW_SAVE":"Сохранить","JS_CORE_WINDOW_CANCEL":"Отменить","JS_CORE_WINDOW_CONTINUE":"Продолжить","JS_CORE_H":"ч","JS_CORE_M":"м","JS_CORE_S":"с","JSADM_AI_HIDE_EXTRA":"Скрыть лишние","JSADM_AI_ALL_NOTIF":"Показать все","JSADM_AUTH_REQ":"Требуется авторизация!","JS_CORE_WINDOW_AUTH":"Войти","JS_CORE_IMAGE_FULL":"Полный размер"});</script>
+
+<script src="/bitrix/js/main/core/core.min.js?1747908999225353"></script>
+
+<script>BX.Runtime.registerExtension({"name":"main.core","namespace":"BX","loaded":true});</script>
+<script>BX.setJSList(["\/bitrix\/js\/main\/core\/core_ajax.js","\/bitrix\/js\/main\/core\/core_promise.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/loadext\/loadext.js","\/bitrix\/js\/main\/loadext\/extension.js","\/bitrix\/js\/main\/polyfill\/promise\/js\/promise.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/includes\/js\/includes.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/ui\/polyfill\/closest\/js\/closest.js","\/bitrix\/js\/main\/polyfill\/fill\/main.polyfill.fill.js","\/bitrix\/js\/main\/polyfill\/find\/js\/find.js","\/bitrix\/js\/main\/polyfill\/matches\/js\/matches.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/core\/core.js","\/bitrix\/js\/main\/polyfill\/intersectionobserver\/js\/intersectionobserver.js","\/bitrix\/js\/main\/lazyload\/dist\/lazyload.bundle.js","\/bitrix\/js\/main\/polyfill\/core\/dist\/polyfill.bundle.js","\/bitrix\/js\/main\/parambag\/dist\/parambag.bundle.js"]);
+</script>
+<script>BX.Runtime.registerExtension({"name":"pull.protobuf","namespace":"BX","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"rest.client","namespace":"window","loaded":true});</script>
+<script>(window.BX||top.BX).message({"pull_server_enabled":"N","pull_config_timestamp":0,"shared_worker_allowed":"Y","pull_guest_mode":"N","pull_guest_user_id":0,"pull_worker_mtime":1747907765});(window.BX||top.BX).message({"PULL_OLD_REVISION":"Для продолжения корректной работы с сайтом необходимо перезагрузить страницу."});</script>
+<script>BX.Runtime.registerExtension({"name":"pull.client","namespace":"BX","loaded":true});</script>
+<script>BX.Runtime.registerExtension({"name":"pull","namespace":"window","loaded":true});</script>
+<script>(window.BX||top.BX).message({"LANGUAGE_ID":"ru","FORMAT_DATE":"DD.MM.YYYY","FORMAT_DATETIME":"DD.MM.YYYY HH:MI:SS","COOKIE_PREFIX":"BITRIX_SM","SERVER_TZ_OFFSET":"10800","UTF_MODE":"Y","SITE_ID":"s1","SITE_DIR":"\/","USER_ID":"","SERVER_TIME":1790394782,"USER_TZ_OFFSET":0,"USER_TZ_AUTO":"Y","bitrix_sessid":"b3c2be91a965e07da861195c8a3fd1d2"});</script>
+
+
+<script src="/bitrix/js/pull/protobuf/protobuf.js?1738167487274055"></script>
+<script src="/bitrix/js/pull/protobuf/model.js?173816748770928"></script>
+<script src="/bitrix/js/rest/client/rest.client.min.js?17381675089240"></script>
+<script src="/bitrix/js/pull/client/pull.client.min.js?174790776749849"></script>
+<script>BX.setJSList(["\/bitrix\/components\/bitrix\/search.title\/script.js","\/local\/templates\/fsp\/components\/bitrix\/menu\/horizontal_multilevel1\/script.js"]);</script>
+<script>BX.setCSSList(["\/local\/templates\/fsp\/components\/bitrix\/search.title\/head_search\/style.css","\/local\/templates\/fsp\/components\/bitrix\/menu\/horizontal_multilevel1\/style.css","\/local\/templates\/fsp\/components\/bitrix\/main.feedback\/comment_footer\/style.css","\/local\/templates\/fsp\/template_styles.css"]);</script>
+<script>
+					(function () {
+						"use strict";
+
+						var counter = function ()
+						{
+							var cookie = (function (name) {
+								var parts = ("; " + document.cookie).split("; " + name + "=");
+								if (parts.length == 2) {
+									try {return JSON.parse(decodeURIComponent(parts.pop().split(";").shift()));}
+									catch (e) {}
+								}
+							})("BITRIX_CONVERSION_CONTEXT_s1");
+
+							if (cookie && cookie.EXPIRE >= BX.message("SERVER_TIME"))
+								return;
+
+							var request = new XMLHttpRequest();
+							request.open("POST", "/bitrix/tools/conversion/ajax_counter.php", true);
+							request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+							request.send(
+								"SITE_ID="+encodeURIComponent("s1")+
+								"&sessid="+encodeURIComponent(BX.bitrix_sessid())+
+								"&HTTP_REFERER="+encodeURIComponent(document.referrer)
+							);
+						};
+
+						if (window.frameRequestStart === true)
+							BX.addCustomEvent("onFrameDataReceived", counter);
+						else
+							BX.ready(counter);
+					})();
+				</script>
+
+
+
+<script  src="/bitrix/cache/js/s1/fsp/template_1fb2fbd6155d245cf5b36d6f8f440837/template_1fb2fbd6155d245cf5b36d6f8f440837_v1.js?17592379127898"></script>
+<script>var _ba = _ba || []; _ba.push(["aid", "7b003e491264ee1f275afe790003a811"]); _ba.push(["host", "fsp-russia.ru"]); (function() {var ba = document.createElement("script"); ba.type = "text/javascript"; ba.async = true;ba.src = (document.location.protocol == "https:" ? "https://" : "http://") + "bitrix.info/ba.js";var s = document.getElementsByTagName("script")[0];s.parentNode.insertBefore(ba, s);})();</script>
+
+
+<title>Регионы</title>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <link rel="stylesheet" href="/completed_pages/css/custom.css?999624460">
+    <link rel="stylesheet" href="/completed_pages/css/custom_device.css?2042366274">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Inter:wght@100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+</head>
+
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#FFFFFF">
+
+
+    <header class="desktop">
+        <div class="container">
+            <div class="row">
+                <div class="logo">
+                    <a href="/"><img src="/completed_pages/images/logo_head.svg" alt="logo"></a>
+                </div>
+                <div class="buttons_block">
+                    <div class="social">
+                        <div class="network vk">
+                            <a href="https://vk.com/russiafsp" target="_blank">
+                                <svg width="20.000000" height="12.000000" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <desc>
+                                        Created with Pixso.
+                                    </desc>
+                                    <defs/>
+                                    <path id="Vector" d="M10.59 11.84C4.09 11.84 0.15 7.33 0 -0.16L3.29 -0.16C3.39 5.34 5.89 7.67 7.81 8.15L7.81 -0.16L10.97 -0.16L10.97 4.59C12.82 4.38 14.75 2.22 15.41 -0.16L18.51 -0.16C18.01 2.77 15.9 4.93 14.41 5.82C15.91 6.54 18.31 8.43 19.23 11.84L15.82 11.84C15.1 9.56 13.33 7.79 10.97 7.55L10.97 11.84L10.59 11.84Z" fill="#EDEDED" fill-opacity="1.000000" fill-rule="evenodd"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="network telegram">
+                            <a href="https://t.me/fsprussia" target="_blank">
+                                <svg width="17.000000" height="14.000000" viewBox="0 0 17 14" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                    <desc>
+                                        Created with Pixso.
+                                    </desc>
+                                    <defs/>
+                                    <path id="path5" d="M1 5.94C1 5.94 8.22 2.86 10.73 1.78C11.69 1.35 14.94 -0.04 14.94 -0.04C14.94 -0.04 16.45 -0.64 16.32 0.83C16.28 1.43 15.95 3.55 15.61 5.85C15.11 9.1 14.57 12.64 14.57 12.64C14.57 12.64 14.48 13.64 13.77 13.81C13.06 13.99 11.89 13.21 11.69 13.03C11.52 12.9 8.55 10.96 7.47 10C7.18 9.74 6.84 9.23 7.51 8.62C9.01 7.19 10.81 5.42 11.89 4.29C12.4 3.77 12.9 2.56 10.81 4.03C7.84 6.15 4.92 8.14 4.92 8.14C4.92 8.14 4.25 8.58 3 8.19C1.75 7.8 0.29 7.28 0.29 7.28C0.29 7.28 -0.72 6.63 1 5.94Z" fill="#EDEDED" fill-opacity="1.000000" fill-rule="nonzero"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="search ">
+                        	<div id="title-search">
+	<form action="/search/index.php">
+		<input id="title-search-input" type="text" name="q" value="" class="input" size="40" maxlength="50" autocomplete="off" />&nbsp;<input class="hidden" name="s" type="submit" value="Поиск" />
+	</form>
+	</div>
+<script>
+	BX.ready(function(){
+		new JCTitleSearch({
+			'AJAX_PAGE' : '/region/regions/',
+			'CONTAINER_ID': 'title-search',
+			'INPUT_ID': 'title-search-input',
+			'MIN_QUERY_LEN': 2
+		});
+	});
+</script>
+                        <!--<form>
+                            <input type="text" class="input" placeholder="Поиск">
+                        </form>-->
+                        <div class="icon">
+                            <svg width="36.000000" height="36.000000" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                                <desc>
+                                    Created with Pixso.
+                                </desc>
+                                <defs/>
+                                <rect id="user-profile-03" width="36.000000" height="36.000000" transform="translate(0.000000 -0.156517)" fill="#FFFFFF" fill-opacity="0"/>
+                                <path id="Icon" d="M13.7 25.25C14.81 25.72 15.97 25.95 17.18 25.95Q18.17 25.95 19.12 25.74Q19.91 25.57 20.65 25.25Q21.41 24.93 22.08 24.49Q22.84 23.99 23.49 23.34Q24.15 22.68 24.64 21.93Q25.09 21.25 25.41 20.5Q25.72 19.75 25.9 18.97Q26.11 18.02 26.11 17.02Q26.11 16.02 25.9 15.07Q25.72 14.29 25.41 13.54Q25.09 12.79 24.64 12.11Q24.15 11.36 23.49 10.7Q22.84 10.05 22.08 9.55Q21.41 9.11 20.65 8.79Q19.91 8.47 19.12 8.3Q18.17 8.09 17.18 8.09Q16.18 8.09 15.23 8.3Q14.45 8.47 13.7 8.79Q12.94 9.11 12.27 9.55Q11.51 10.05 10.86 10.7Q10.21 11.36 9.71 12.11Q9.27 12.79 8.95 13.54Q8.63 14.29 8.46 15.07Q8.25 16.02 8.25 17.02Q8.25 18.02 8.46 18.97Q8.63 19.75 8.95 20.5Q9.27 21.25 9.71 21.93Q10.21 22.68 10.86 23.34Q11.51 23.99 12.27 24.49Q12.94 24.93 13.7 25.25ZM18.83 24.27Q18.02 24.45 17.18 24.45Q16.33 24.45 15.53 24.27Q14.89 24.13 14.28 23.87Q13.66 23.61 13.11 23.24Q12.47 22.82 11.92 22.28Q11.37 21.73 10.96 21.09Q10.59 20.53 10.33 19.91Q10.07 19.3 9.93 18.67Q9.75 17.87 9.75 17.02Q9.75 16.17 9.93 15.37Q10.07 14.74 10.33 14.13Q10.59 13.51 10.96 12.95Q11.37 12.31 11.92 11.77Q12.47 11.22 13.11 10.8Q13.66 10.44 14.28 10.17Q14.89 9.91 15.53 9.77Q16.33 9.59 17.18 9.59Q18.02 9.59 18.83 9.77Q19.46 9.91 20.07 10.17Q20.69 10.44 21.25 10.8Q21.88 11.22 22.43 11.77Q22.98 12.31 23.4 12.95Q23.76 13.51 24.02 14.13Q24.28 14.74 24.43 15.37Q24.61 16.17 24.61 17.02Q24.61 17.87 24.43 18.67Q24.28 19.3 24.02 19.91Q23.76 20.53 23.4 21.09Q22.98 21.73 22.43 22.28Q21.88 22.82 21.25 23.24Q20.69 23.61 20.07 23.87Q19.46 24.13 18.83 24.27ZM27.53 26.31L24.25 23.04L23.19 24.1L26.46 27.37C26.76 27.67 27.23 27.67 27.53 27.37C27.82 27.07 27.82 26.61 27.53 26.31Z" fill="#1B1C21" fill-opacity="1.000000" fill-rule="evenodd"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="profile">
+                        <div class="log_in">
+                            <a href="">Войти</a>
+                        </div>
+                        <div class="registration">
+                            <a href="">Регистрация</a>
+                        </div>
+                    </div>
+                    <div class="language">
+                        <select name="lang" id="lang">
+                            <option value="rus">RU</option>
+                            <option value="eng">EN</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="menu">
+                    
+    <ul class="main">
+
+    
+    
+    
+        <li class="dop"><a href="/about/" class="root-item">О нас</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/#second">О Федерации</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/rukovodstvo">Руководство</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/member/">Как стать членом федерации</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/documents/">Документы</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/nationalteam/">Сборная России</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/cooperation/">Международное сотрудничество</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        <li class="dop"><a href="/region/" class="root-item">Регионы</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li class="item-selected"><a href="/region/regions/">Контакты представителей</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        <li class="dop"><a href="/calendar/" class="root-item">Календарь</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/calendar/">Анонс</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/calendar/archive/">Архив событий</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        
+                            <li><a href="#" class="root-item">Статистика</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/antidoping/" class="root-item">Антидопинг</a></li>
+            
+        
+    
+    
+
+    
+    
+        <li class="dop"><a href="/press/" class="root-item">Пресс-служба</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/pressservice/">ФСП в СМИ</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/news/">Новости</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/photovideo/">Фото и видео</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/brandbook/">Брендбук</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/logotip/">Логотипы</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="#">Регламент взаимодействия со СМИ</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        
+                            <li><a href="/contacts/" class="root-item">Контакты</a></li>
+            
+        
+    
+    
+
+    
+    </ul>
+    <div class="menu-clear-left"></div>
+                    <!--<ul class="main">
+                        <li class="dop">
+                            <a href="">О нас</a>
+                            <ul class="submenu">
+                                <li><a href="">О Федерации</a></li>
+                                <li><a href="/completed_pages/rukovodstvo/index.php">Руководство</a></li>
+                                <li><a href="/completed_pages/member/index.php">Как стать членом федерации</a></li>
+                                <li><a href="/completed_pages/documents/index.php">Документы</a></li>
+                                <li><a href="/completed_pages/nationalteam/index.php">Сборная России</a></li>
+                                <li><a href="/completed_pages/cooperation/index.php">Международное сотрудничество</a></li>
+                            </ul>
+                        </li>
+                        <li class="dop">
+                            <a href="/completed_pages/regions/index.php">Регионы</a>
+                            <ul class="submenu">
+                                <li><a href="">Контакты представителей</a></li>
+                            </ul>
+                        </li>
+                        <li class="dop">
+                            <a href="">Календарь</a>
+                            <ul class="submenu">
+                                <li><a href="">Анонс</a></li>
+                                <li><a href="">Архив событий</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="">Статистика</a></li>
+                        <li><a href="/completed_pages/antidoping/index.php">Антидопинг</a></li>
+                        <li class="dop">
+                            <a href="/completed_pages/pressservice/index.php">Пресс-служба</a>
+                            <ul class="submenu">
+                                <li><a href="/completed_pages/pressservice/index.php">ФСП в СМИ</a></li>
+                                <li><a href="">Регламент взаимодействия со СМИ</a></li>
+                                <li><a href="/completed_pages/contactspress/index.php">Контакты пресс-секретаря</a></li>
+                                <li><a href="/completed_pages/photovideo/index.php">Фото и видео</a></li>
+                                <li><a href="/completed_pages/brandbook/index.php">Брендбук</a></li>
+                                <li><a href="/completed_pages/logotip/index.php">Логотипы</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="/completed_pages/contacts/index.php">Контакты</a></li>
+                    </ul>-->
+                </div>
+            </div>
+        </div>
+    </header>
+    <header class="mobile">
+        <div class="container">
+            <div class="row">
+                <div class="logo">
+                    <a href="/"><img src="/completed_pages/images/logo_mobile.svg" alt="logo"></a>
+                </div>
+                <div class="buttons">
+                    <!--<div class="log_in">
+                        <img src="/completed_pages/images/logblack.svg" alt="user">
+                    </div>-->
+                    <div class="btn_menu">
+
+                    </div>
+                </div>
+                <div class="click_menu">
+                    <div class="search">
+                        <form>
+                            <input type="text" placeholder="Что ищете?">
+                            <button type="submit">
+                                <img src="/completed_pages/images/search_btn.svg" alt="search">
+                            </button>
+                        </form>
+                    </div>
+                    <div class="menu">
+                        
+    <ul class="main">
+
+    
+    
+    
+        <li class="dop"><a href="/about/" class="root-item">О нас</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/#second">О Федерации</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/rukovodstvo">Руководство</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/member/">Как стать членом федерации</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/documents/">Документы</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/nationalteam/">Сборная России</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/about/cooperation/">Международное сотрудничество</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        <li class="dop"><a href="/region/" class="root-item">Регионы</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li class="item-selected"><a href="/region/regions/">Контакты представителей</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        <li class="dop"><a href="/calendar/" class="root-item">Календарь</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/calendar/">Анонс</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/calendar/archive/">Архив событий</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        
+                            <li><a href="#" class="root-item">Статистика</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/antidoping/" class="root-item">Антидопинг</a></li>
+            
+        
+    
+    
+
+    
+    
+        <li class="dop"><a href="/press/" class="root-item">Пресс-служба</a>
+    <ul class="submenu">
+    
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/pressservice/">ФСП в СМИ</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/news/">Новости</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/photovideo/">Фото и видео</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/brandbook/">Брендбук</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="/press/logotip/">Логотипы</a></li>
+            
+        
+    
+    
+
+    
+    
+        
+                            <li><a href="#">Регламент взаимодействия со СМИ</a></li>
+            
+        
+    
+    
+
+            </ul></li>    
+    
+        
+                            <li><a href="/contacts/" class="root-item">Контакты</a></li>
+            
+        
+    
+    
+
+    
+    </ul>
+    <div class="menu-clear-left"></div>
+                        <!--<ul class="main">
+                            <li class="dop">
+                                <a href="">О нас</a>
+                                <ul class="submenu">
+                                    <li><a href="">О Федерации</a></li>
+                                    <li><a href="/completed_pages/rukovodstvo/index.php">Руководство</a></li>
+                                    <li><a href="/member/index.php">Как стать членом федерации</a></li>
+                                    <li><a href="/completed_pages/documents/index.php">Документы</a></li>
+                                    <li><a href="/completed_pages/nationalteam/index.php">Сборная России</a></li>
+                                    <li><a href="/completed_pages/cooperation/index.php">Международное сотрудничество</a></li>
+                                </ul>
+                            </li>
+                            <li class="dop">
+                                <a href="/completed_pages/regions/index.php">Регионы</a>
+                                <ul class="submenu">
+                                    <li><a href="">Контакты представителей</a></li>
+                                </ul>
+                            </li>
+                            <li class="dop">
+                                <a href="">Календарь</a>
+                                <ul class="submenu">
+                                    <li><a href="">Анонс</a></li>
+                                    <li><a href="">Архив событий</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="">Статистика</a></li>
+                            <li><a href="/completed_pages/antidoping/index.php">Антидопинг</a></li>
+                            <li class="dop">
+                                <a href="/completed_pages/pressservice/index.php">Пресс-служба</a>
+                                <ul class="submenu">
+                                    <li><a href="/completed_pages/pressservice/index.php">ФСП в СМИ</a></li>
+                                    <li><a href="">Регламент взаимодействия со СМИ</a></li>
+                                    <li><a href="/completed_pages/contactspress/index.php">Контакты пресс-секретаря</a></li>
+                                    <li><a href="/completed_pages/photovideo/index.php">Фото и видео</a></li>
+                                    <li><a href="/completed_pages/brandbook/index.php">Брендбук</a></li>
+                                    <li><a href="/completed_pages/logotip/index.php">Логотипы</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="/completed_pages/contacts/index.php">Контакты</a></li>
+                        </ul>-->
+                    </div>
+                    <div class="contacts wid">
+                        <div class="title">
+                            <h3>Контакты</h3>
+                        </div>
+                        <div class="mail">
+                            <a href="mailto:info@fsp-russia.com">info@fsp-russia.com</a>
+                        </div>
+                        <div class="phone">
+                            <a href="tel:+74996780305">+7 (499) 678-03-05</a>
+                        </div>
+                        <div class="adress">
+                            <p>125047, г. Москва,</p>
+                            <p>2-я Брестская, д.8, этаж 9</p>
+                        </div>
+                    </div>
+                    <div class="social_lang">
+                        <div class="social_site wid">
+                            <div class="site">
+                                <a href="https://vk.com/russiafsp" target="_blank"><img src="/completed_pages/images/vk_mob.svg" alt="vk"></a>
+                            </div>
+                            <div class="site">
+                                <a href="https://t.me/fsprussia" target="_blank"><img src="/completed_pages/images/tel_mob.svg" alt="vk"></a>
+                            </div>
+                        </div>
+                        <div class="language">
+                            <div class="rus">
+                                <a href="">ru</a>
+                            </div>
+                            <div class="eng">
+                                <a href="">en</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+<div class="main">
+    <section class="regions">
+        <div class="container">
+            <div class="title">
+                <h2>Регионы</h2>
+            </div>
+        </div>
+        <div class="background">
+            <div class="container">
+                <div class="row">
+
+                            <div class="contacts_info">
+    <div class="contact_td">
+        <div class="title sub">
+            <p>Субъект РФ</p>
+        </div>
+        <div class="title ruk">
+            <p>Руководитель</p>
+        </div>
+        <div class="title con">
+            <p>Контакты</p>
+        </div>
+    </div>
+                                                                                        <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/moscow/"><p class="white_region">г. Москва</p></a>
+                    </div>
+                        <div class="cont ruk">
+                            <p class="hide_region">Руководитель</p>
+                            <a href="/region/regions/moscow/"><p class="white_region">Анашкин Евгений Юрьевич</p></a>
+                        </div>
+                        <div class="cont con">
+                            <p class="hide_region">Контакты</p>
+                            <p class="white_region">fspmsk@mail.ru</p>
+                    </div>
+                </div>
+                                                                                                                                                                                                                                                                                                </div>
+<div class="faq">
+    <div class="accordion">
+<div class="accordion-item">
+    <div class="accordion-header">
+        <h4>Центральный федеральный округ</h4>
+    </div>
+            <div class="accordion-content">
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/belgorod/"><p class="white_region">Белгородская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/belgorod/"><p class="white_region">Алексеев Алексей Геннадьевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">belgorod@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/bryansk/"><p class="white_region">Брянская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/bryansk/"><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">bryansk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/vladimir/"><p class="white_region">Владимирская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/vladimir/"><p class="white_region">Лисова Анастасия Андреевна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">vladimir@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/voronezh/"><p class="white_region">Воронежская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/voronezh/"><p class="white_region">Ульянов Владимир</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">voronezh@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/ivanovsk/"><p class="white_region">Ивановская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/ivanovsk/"><p class="white_region">Канаев Алеексей Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">lvanovo@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/kaluga/"><p class="white_region">Калужская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/kaluga/"><p class="white_region">Колесников Алексей Владимирович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kaluga@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/kostroma/"><p class="white_region">Костромская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/kostroma/"><p class="white_region">Степан Лазарев</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kostroma@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/kursk/"><p class="white_region">Курская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/kursk/"><p class="white_region">Журавлев Владимир Борисович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kursk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/lipetck/"><p class="white_region">Липецкая область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/lipetck/"><p class="white_region">Даниил Сапронов</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">lipetsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/moskovskaya-oblast/"><p class="white_region">Московская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/moskovskaya-oblast/"><p class="white_region">Парафейников Игорь Владимирович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">moscow-obl@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/orlovsk/"><p class="white_region">Орловская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/orlovsk/"><p class="white_region">Семкин Александр Николаевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">oryol@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/ryazan/"><p class="white_region">Рязанская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/ryazan/"><p class="white_region">Халамцева Евгения Милмировна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">ryazan@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/smolensk/"><p class="white_region">Смоленская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/smolensk/"><p class="white_region">Воронин Владислав Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">smolensk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/tambov/"><p class="white_region">Тамбовская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/tambov/"><p class="white_region">Белозеров Сергей Николаевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">tambov@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/tver/"><p class="white_region">Тверская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/tver/"><p class="white_region">Шапель Денис Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">tver@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/tula/"><p class="white_region">Тульская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/tula/"><p class="white_region">Арефьева Елена Анатольевна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">tula@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/yaroslav/"><p class="white_region">Ярославская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/yaroslav/"><p class="white_region">Чалый Дмитрий Юрьевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">yaroslavl@fsp-russia.ru</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+<div class="accordion-item">
+    <div class="accordion-header">
+        <h4>Южный федеральный округ</h4>
+    </div>
+            <div class="accordion-content">
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/adg/"><p class="white_region">Республика Адыгея</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/adg/"><p class="white_region">Алиев Марат Вячеславович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">adygea@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/kalmik/"><p class="white_region">Республика Калмыкия</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/kalmik/"><p class="white_region">Муниев Аркадий Михайлович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kalmykia@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/krd/"><p class="white_region">Краснодарский край</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/krd/"><p class="white_region">Лытнев Артем Сергеевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">krasnodar@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/astrah/"><p class="white_region">Астраханская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/astrah/"><p class="white_region">Асадуллина Юлия Альбертовна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">astrakhan@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/volgograd/"><p class="white_region">Волгоградская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/volgograd/"><p class="white_region">Попова Елена Владимировна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">volgograd@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/rostov/"><p class="white_region">Ростовская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/rostov/"><p class="white_region">Савва Станислав Анатольевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">rostov@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/gorod-sevastopol/"><p class="white_region">город Севастополь</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/gorod-sevastopol/"><p class="white_region">Малокостов Вячеслав</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">sevastopol@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/krm/"><p class="white_region">Республика Крым</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/krm/"><p class="white_region">Зырянов Сергей Геннадиевич	</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">crimea@fsp-russia.ru</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+<div class="accordion-item">
+    <div class="accordion-header">
+        <h4>Северо-западный федеральный округ</h4>
+    </div>
+            <div class="accordion-content">
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/karelia/"><p class="white_region">Республика Карелия</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/karelia/"><p class="white_region">Алькин Руслан Валерьевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">karelia@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/komi/"><p class="white_region">Республика Коми</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/komi/"><p class="white_region">Некрасов Александр Николаевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">komi@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/arhangel/"><p class="white_region">Архангельская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/arhangel/"><p class="white_region">Алексей Алескандрович Лисьев</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">arkhangelsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/kaliningrad/"><p class="white_region">Калининградская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/kaliningrad/"><p class="white_region">Дубинин Иван Витальевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">info@fsp-kaliningrad.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/leningrad/"><p class="white_region">Ленинградская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/leningrad/"><p class="white_region">Белов Артем Дмитриевич </p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">leningrad@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/murmansk/"><p class="white_region">Мурманская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/murmansk/"><p class="white_region">Сидорова Антонина Сергеевна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">murmansk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/novgorod/"><p class="white_region">Новгородская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/novgorod/"><p class="white_region">Богданов Михаил Михайлович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">novgorod@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/pskov/"><p class="white_region">Псковская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/pskov/"><p class="white_region">Степаненков Марк Валерьевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">pskov@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/neneckiy/"><p class="white_region">Ненецкий автономный округ</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/neneckiy/"><p class="white_region">Демчик Ирина Игоревна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">nenets@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/vologod/"><p class="white_region">Вологодская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/vologod/"><p class="white_region">Мельников Олег Николаевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">vologda@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/g-sankt-peterburg/"><p class="white_region">г. Санкт Петербург</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/g-sankt-peterburg/"><p class="white_region">Кувиков Денис Геннадьевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">saint-petersburg@fsp-russia.ru</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+<div class="accordion-item">
+    <div class="accordion-header">
+        <h4>Дальневосточный федеральный округ</h4>
+    </div>
+            <div class="accordion-content">
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/saha/"><p class="white_region">Республика Саха-Якутия</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/saha/"><p class="white_region">Николаев Николай Борисович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">sakha@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/kamchatka/"><p class="white_region">Камчатский край</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/kamchatka/"><p class="white_region">Дресвянский Владимир Сергеевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kamchatka@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/primor/"><p class="white_region">Приморский край</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/primor/"><p class="white_region">Снитко Владимир Алексеевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">primorsky@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/habarovsk/"><p class="white_region">Хабаровский край</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/habarovsk/"><p class="white_region">Бородинов Николай Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">khabarovsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/amursk/"><p class="white_region">Амурская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/amursk/"><p class="white_region">Попов Руслан Игоревич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">amur@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/magadan/"><p class="white_region">Магаданская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/magadan/"><p class="white_region">Бережной Антон Константинович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">magadan@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/buryat/"><p class="white_region">Республика Бурятия</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/buryat/"><p class="white_region">Пьянников Владимир Сергеевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">buryatia@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/zabaykalie/"><p class="white_region">Забайкальский край</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/zabaykalie/"><p class="white_region">Метельский Тарас Леонидович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">zabaykalsky@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/sahalin/"><p class="white_region">Сахалинская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/sahalin/"><p class="white_region">Соболев Евгений Игоревич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">sakhalin@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/evrey/"><p class="white_region">Еврейский АО</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/evrey/"><p class="white_region">Пешков Григорий Сергеевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">jewish@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/chukotka/"><p class="white_region">Чукотский АО</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/chukotka/"><p class="white_region">Косов Георгий Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">chukotka@fsp-russia.ru</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+<div class="accordion-item">
+    <div class="accordion-header">
+        <h4>Сибирский федеральный округ</h4>
+    </div>
+            <div class="accordion-content">
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/altay/"><p class="white_region">Республика Алтай</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/altay/"><p class="white_region">Шило Светлана Анатольевна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">altai@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/tuva/"><p class="white_region">Республика Тыва</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/tuva/"><p class="white_region">Оюн Субудай Викторович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">tuva@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/hakasia/"><p class="white_region">Республика Хакасия</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/hakasia/"><p class="white_region">Шпигальский Денис Олегович	</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">khakassia@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/altayskiy/"><p class="white_region">Алтайский край</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/altayskiy/"><p class="white_region">Егораев Алексей Анатольевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">altai-k@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/krasnoyarsk/"><p class="white_region">Красноярский край</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/krasnoyarsk/"><p class="white_region">Капулин Денис Владимирович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">krasnoyarsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/irkutsk/"><p class="white_region">Иркутская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/irkutsk/"><p class="white_region">Ищенко Роман Владимирович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">irkutsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/keverovsk/"><p class="white_region">Кемеровская область - Кузбасс</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/keverovsk/"><p class="white_region">Попов Александр Сергеевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kuzbass@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/novosib/"><p class="white_region">Новосибирская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/novosib/"><p class="white_region">Павел Ревердатто</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">novosibirsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/omsk/"><p class="white_region">Омская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/omsk/"><p class="white_region">Иванищев Юрий Ильич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">omsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/tomsk/"><p class="white_region">Томская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/tomsk/"><p class="white_region">Конев Антон Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">tomsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+<div class="accordion-item">
+    <div class="accordion-header">
+        <h4>Уральский федеральный округ</h4>
+    </div>
+            <div class="accordion-content">
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/kurgan/"><p class="white_region">Курганская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/kurgan/"><p class="white_region">Белоусов Михаил Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kurgan@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/sverdlovsk/"><p class="white_region">Свердловская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/sverdlovsk/"><p class="white_region">Обабков Илья Николаевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">sverdlovsk@fsp-russia.ru +7 (922) 174-90-68</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/tumensk/"><p class="white_region">Тюменская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/tumensk/"><p class="white_region">Сенкевич Людмила Борисовна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">tyumen@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/chelyabinsk/"><p class="white_region">Челябинская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/chelyabinsk/"><p class="white_region">Нечет Сергей Геннадьевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">chelyablnsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/hant-man/"><p class="white_region">Ханты-Мансийский автономный округ – Югра</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/hant-man/"><p class="white_region">Даниленко Иван Николаевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">hmao@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/yamalnen/"><p class="white_region">Ямало-Ненецкий АО</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/yamalnen/"><p class="white_region">Гашимова Лариса Павловна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">yamalo-nenets@fsp-russia.ru</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+<div class="accordion-item">
+    <div class="accordion-header">
+        <h4>Приволжский федеральный округ</h4>
+    </div>
+            <div class="accordion-content">
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/bashkor/"><p class="white_region">Республика Башкортостан</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/bashkor/"><p class="white_region">Юлия Валиахметова</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">bashkortostan@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/mariel/"><p class="white_region">Республика Марий Эл</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/mariel/"><p class="white_region">Куликова Екатерина Ивановна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">mari-ei@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/mordovia/"><p class="white_region">Республика Мордовия</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/mordovia/"><p class="white_region">Попова Виктория Александровна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">mordovia@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/tatarstan/"><p class="white_region">Республика Татарстан</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/tatarstan/"><p class="white_region">Хайбуллина Аделя Айзатовна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">tatarstan@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/udmurtia/"><p class="white_region">Удмуртская Республика</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/udmurtia/"><p class="white_region">Пигалев Сергей Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">udmurtia@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/chuvash/"><p class="white_region">Чувашская Республика</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/chuvash/"><p class="white_region">Набиев Александр Эльдарович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">fspchuv@mail.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/kirov/"><p class="white_region">Кировская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/kirov/"><p class="white_region">Крутиков Александр Константинович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kirov@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/nizhegor/"><p class="white_region">Нижегородская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/nizhegor/"><p class="white_region">Аникиец Александр Алексеевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">nizhny-novgorod@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/orenburg/"><p class="white_region">Оренбургская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/orenburg/"><p class="white_region">Сельхова Анастасия Владимировна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">orenburg@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/penza/"><p class="white_region">Пензенская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/penza/"><p class="white_region">Гурьянов Лев Вячеславович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">penza@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/perm/"><p class="white_region">Пермский край</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/perm/"><p class="white_region">Ягофаров Оскар Фаитович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">perm@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/samara/"><p class="white_region">Самарская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/samara/"><p class="white_region">Бабенко Михаил Владимирович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">samara@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/saratov/"><p class="white_region">Саратовская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/saratov/"><p class="white_region">Федорова Антонина Гавриловна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">saratov@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/ulyanovsk/"><p class="white_region">Ульяновская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/ulyanovsk/"><p class="white_region">Горшков Даниил Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">ulyanovsk@fsp-russia.ru</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+<div class="accordion-item">
+    <div class="accordion-header">
+        <h4>Северо-Кавказский федеральный округ</h4>
+    </div>
+            <div class="accordion-content">
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/dagestan/"><p class="white_region">Республика Дагестан</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/dagestan/"><p class="white_region">Абдулаев Магомед Магомедгаджиевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">Fsprd@mail.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/ingush/"><p class="white_region">Республика Ингушетия</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/ingush/"><p class="white_region">Найденко Роман Анатольевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">lngushetia@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/kbbalk/"><p class="white_region">Кабардино-Балкарская Республика</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/kbbalk/"><p class="white_region">Тюбеев Мурат Абдуллахович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kabardino-balkaria@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/krch/"><p class="white_region">Карачаево-Черкесская Республика</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/krch/"><p class="white_region">Андропов Константин Сергеевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">karachay-cherkessia@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/sevosetia/"><p class="white_region">Республика Северная Осетия - Алания</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/sevosetia/"><p class="white_region">Нартиков Александр Георгиевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">ossetia-alania@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/stavrop/"><p class="white_region">Ставропольский край</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/stavrop/"><p class="white_region">Черкесс Кирилл Андреевич</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">stavropol@fsp-russia.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/chechenck/"><p class="white_region">Чеченская Республика</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/chechenck/"><p class="white_region">Саидов Зубайр Ахмедович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">chechnya@fsp-russia.ru</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+<div class="accordion-item">
+    <div class="accordion-header">
+        <h4>Новые регионы</h4>
+    </div>
+            <div class="accordion-content">
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/doneck/"><p class="white_region">Донецкая Народная Республика</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/doneck/"><p class="white_region">Станков Игорь Валентинович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">fsp-dnr@mail.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/lugansk/"><p class="white_region">Луганская Народная Республика</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/lugansk/"><p class="white_region">Мальцева-Светличная Ольга Валерьевна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">fsp_lnr@mail.ru сайт: www.fsp-lnr.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/zprzsh/"><p class="white_region">Запорожская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/zprzsh/"><p class="white_region">Букреев Дмитрий Александрович</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">directum@fsp-zo.ru</p>
+                    </div>
+                </div>
+                            <div class="contact_td">
+                    <div class="cont sub">
+                        <p class="hide_region">Субъект РФ</p>
+                        <a href="/region/regions/hers/"><p class="white_region">Херсонская область</p></a>
+                    </div>
+                    <div class="cont ruk">
+                        <p class="hide_region">Руководитель</p>
+                        <a href="/region/regions/hers/"><p class="white_region">Панько Алёна Андреевна</p></a>
+                    </div>
+                    <div class="cont con">
+                        <p class="hide_region">Контакты</p>
+                        <p class="white_region">kherson@fsp-russia.ru</p>
+                    </div>
+                </div>
+                    </div>
+    </div>
+    </div>
+</div>
+                            <!--<div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Центральный федеральный округ</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href="/completed_pages/regiondetail/index.php"><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Костромская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Диденко Дмитрий Николаевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 910 660-14-83</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Курская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Журавлев Владимир Борисович</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 961 194-09-40</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Липецкая область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Даниил Сапронов</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 915 853-09-98</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Московская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Орловская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Титова Екатерина Викторовна</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 968 924-85-20</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Рязанская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Халамцева Евгения Милмировна</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 952 127-80-97</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Смоленская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Образцов Сергей Александрович</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 664-56-93</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Тамбовская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Тверская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Пожидаев Петр Вячеславович</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 919 055-11-35</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Тульская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ярославская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Чалый Дмитрий Юрьевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 910 977-88-99</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Южный федеральный округ</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Северо-западный федеральный округ</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Дальневосточный федеральный округ</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Сибирский федеральный округ</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Уральский федеральный округ</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Приволжский федеральный округ</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Северо-Кавказский федеральный округ</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Донецкая Народная Республика</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Луганская Народная Республика</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Запорожская область</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="accordion-item">
+                                <div class="accordion-header">
+                                    <h4>Херсонская область</h4>
+                                </div>
+                                <div class="accordion-content">
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Белгородская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Брянская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Казаков Олег Дмитриевич</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 920 604-65-36</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Владимирская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Воронежская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Ульянов Владимир</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 903 858-88-95</p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Ивановская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region"></p>
+                                        </div>
+                                    </div>
+                                    <div class="contact_td">
+                                        <div class="cont sub">
+                                            <p class="hide_region">Субъект РФ</p>
+                                            <p class="white_region">Калужская область</p>
+                                        </div>
+                                        <div class="cont ruk">
+                                            <p class="hide_region">Руководитель</p>
+                                            <a href=""><p class="white_region">Колесников Алексей</p></a>
+                                        </div>
+                                        <div class="cont con">
+                                            <p class="hide_region">Контакты</p>
+                                            <p class="white_region">+7 996 523-43-48</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>-->
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="logo">
+                <img src="/completed_pages/images/logo_foot.svg" alt="logo">
+            </div>
+            <div class="button_up">
+                <p>Наверх</p>
+                <div class="btn" id="button_up">
+                    <a href="#">
+                        <svg width="11.000000" height="6.000000" viewBox="0 0 11 6" fill="none"
+                             xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                            <desc>
+                                Created with Pixso.
+                            </desc>
+                            <defs/>
+                            <path id="Icon" d="M0 5L5 0L10 5" stroke="#FFFFFF" stroke-opacity="1.000000"
+                                  stroke-width="1.000000" stroke-linejoin="round"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="contacts wid">
+                    <div class="title">
+                        <h3>Контакты</h3>
+                    </div>
+                    <div class="mail">
+                        <a href="mailto:info@fsp-russia.ru">info@fsp-russia.ru</a>
+                    </div>
+                    <div class="phone">
+                        <a href="tel:+74996780305">+7 (499) 678-03-05</a>
+                    </div>
+                    <div class="adress">
+                        <p>125047, г. Москва,</p>
+                        <p>2-я Брестская, д.8, этаж 9</p>
+                    </div>
+                </div>
+                <div class="press_center wid">
+                    <div class="title">
+                        <h3>Пресс-служба</h3>
+                    </div>
+                    <div class="mail">
+                        <a href="mailto:press@fsp-russia.ru">press@fsp-russia.ru</a>
+                    </div>
+                    <div class="phone">
+                        <a href="tel:+79165282431"></a>
+                    </div>
+                </div>
+                <div class="qr_code wid">
+                    <div class="image">
+                        <img src="/completed_pages/images/vk_foot.svg" alt="qrcode">
+                    </div>
+                    <div class="image">
+                        <img src="/completed_pages/images/telegram_foot.svg" alt="qrcode">
+                    </div>
+                </div>
+                <div class="social_site wid">
+                    <div class="title">
+                        <h3>Социальные сети</h3>
+                    </div>
+                    <div class="site">
+                        <a href="https://vk.com/russiafsp" target="_blank">vk.com/russiafsp</a>
+                    </div>
+                    <div class="site">
+                        <a href="https://t.me/fsprussia" target="_blank">t.me/fsprussia</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="title">
+                    <h3>Помогите сделать сервис лучше, напишите отзыв</h3>
+                </div>
+                
+
+<form action="/region/regions/" method="POST">
+<input type="hidden" name="sessid" id="sessid" value="b3c2be91a965e07da861195c8a3fd1d2" />		<textarea name="MESSAGE" placeholder="Предлагаю ..." rows="5" cols="40"></textarea>
+
+	<input type="hidden" name="PARAMS_HASH" value="223a678437de01e68df2a39259c6b7e2">
+	<input type="submit" name="submit" value="Отправить">
+</form>
+<!--                <form action="">
+                    <textarea name="message" id="comment" placeholder="Предлагаю ..."></textarea>
+                    <input type="submit" name="submit">
+                </form>-->
+            </div>
+        </div>
+        <div class="row">
+            <div class="politika">
+                <a href="/files/Положение%20обработка%20пдн%20(1).pdf">Политика конфиденциальности</a>
+            </div>
+            <div class="polzovanie">
+                <a href="">Условия соглашения</a>
+            </div>
+            <div class="name">
+                <p>Федерация спортивного программирования России</p>
+            </div>
+            <div class="year">
+                <p>©2025</p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js" integrity="sha512-+k1pnlgt4F1H8L7t3z95o3/KO+o78INEcXTbnoJQ/F2VqDVhWoaiVml/OEHv9HsVgxUaVW+IbiZPUJQfF/YxZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox/fancybox.umd.js"></script>
+<script type="text/javascript" src="/completed_pages/js/custom.js?1155865537"></script>
+
+
+<script>
+    AOS.init();
+</script>
+
+
+</body>
+</html>
