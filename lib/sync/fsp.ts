@@ -1,4 +1,5 @@
 import { fetchFspCalendar } from "../fsp/calendar";
+import { withSources } from "../fsp/regional";
 import { fetchFederations, FSP_REGIONS_URL } from "../fsp/regions";
 import { mutate } from "../store";
 import { linkEvents } from "./link";
@@ -13,7 +14,7 @@ export async function syncFsp(now = new Date()) {
   const result: Record<string, unknown> = {};
 
   try {
-    const feds = await fetchFederations();
+    const feds = withSources(await fetchFederations());
     if (feds.length < 50) throw new Error(`в справочнике всего ${feds.length} отделений — вёрстка сайта изменилась?`);
     await mutate((ds) => {
       ds.federations = feds;

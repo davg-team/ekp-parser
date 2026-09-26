@@ -2,13 +2,17 @@ import { mutate } from "../store";
 import type { SyncLogEntry } from "../types";
 import { syncEkp } from "./ekp";
 
-export type Job = "ekp" | "fsp" | "all";
+export type Job = "ekp" | "fsp" | "regional" | "all";
 
 const JOBS: Record<Exclude<Job, "all">, (o: { force?: boolean }) => Promise<unknown>> = {
   ekp: (o) => syncEkp(o),
   fsp: async () => {
     const { syncFsp } = await import("./fsp");
     return syncFsp();
+  },
+  regional: async () => {
+    const { syncRegional } = await import("./regional");
+    return syncRegional();
   },
 };
 

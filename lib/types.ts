@@ -1,4 +1,6 @@
-export type EventSource = "ekp" | "fsp";
+import type { ExtractCache } from "./fsp/regional/extract";
+
+export type EventSource = "ekp" | "fsp" | "region";
 
 export type EventLevel =
   | "Чемпионат России"
@@ -14,7 +16,7 @@ export type EventLevel =
   | "Прочее";
 
 export type SportEvent = {
-  /** ekp:<№ СМ> или fsp:<id на сайте ФСП> */
+  /** ekp:<№ СМ>, fsp:<id на сайте ФСП> или region:<адаптер>:<ключ поста> */
   id: string;
   source: EventSource;
   ekpId: string | null;
@@ -47,7 +49,7 @@ export type SportEvent = {
 
 export type SourceDoc = {
   id: string;
-  kind: "ekp-part2" | "fsp-calendar" | "fsp-regions";
+  kind: "ekp-part2" | "fsp-calendar" | "fsp-regions" | "region";
   url: string;
   year: number | null;
   /** дата актуализации документа (из имени файла) */
@@ -105,4 +107,6 @@ export type Dataset = {
   federations: Federation[];
   views: SavedView[];
   syncLog: SyncLogEntry[];
+  /** кэш извлечения мероприятий из постов отделений */
+  extractCache?: ExtractCache;
 };
