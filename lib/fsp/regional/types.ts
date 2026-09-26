@@ -14,10 +14,10 @@ export type Post = {
 };
 
 export interface RegionAdapter {
-  /** tg-<канал> / vk-<группа> */
+  /** tg-<канал> / vk-<группа> / foncode / caplag */
   id: string;
-  /** код субъекта */
-  region: number;
+  /** код субъекта; null — платформа со всеми субъектами */
+  region: number | null;
   url: string;
   fetch(): Promise<Incoming[]>;
   /** Записи этого адаптера, которые покрыл последний fetch (по окну просмотренных постов). */

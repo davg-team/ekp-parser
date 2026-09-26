@@ -8,6 +8,10 @@ import { windowScope } from "../lib/fsp/regional/types";
 import { isFspGroup, parseVkWall, vkAdapter } from "../lib/fsp/regional/vk";
 import { emptyDataset } from "../lib/store";
 import { mergeSnapshot } from "../lib/sync/merge";
+import { regionInText } from "../lib/regions";
+import { contestsToEvents, coveredBy, stageBase } from "../lib/fsp/regional/platform";
+import { foncodeAdapter, parseFoncodePage } from "../lib/fsp/regional/foncode";
+import { caplagAdapter, parseCaplagList, parseCaplagPage } from "../lib/fsp/regional/caplag";
 import type { Federation, SportEvent } from "../lib/types";
 
 const file = (n: string) => readFileSync(`fixtures/${n}`, "utf8");
@@ -76,12 +80,20 @@ describe("Telegram", () => {
     expect(extractByRules(post("Кубок Пермского края по ИБ\n📍 18 апреля, технопарк"))).toHaveLength(1);
   });
 
+  it("правила отбрасывают репосты соседей и анонсы платформ", () => {
+    const post = (text: string) => ({ key: "1", seq: 1, url: "", date: "2026-09-10", text });
+    expect(extractByRules(post("Кубок Пермского края по ИБ\n📍 18 апреля"), 16)).toEqual([]);
+    expect(extractByRules(post("Кубок Пермского края по ИБ\n📍 18 апреля"), 59)).toHaveLength(1);
+    expect(extractByRules(post("Новое CTF на Caplag «Сердце Сысолы»\n8 августа"), 16)).toEqual([]);
+  });
+
   it("адаптер: fetch без сети, окно просмотренных постов", async () => {
     const html = file("tg-fspchuv.html");
     vi.stubGlobal("fetch", vi.fn(async () => new Response(html)));
     const a = telegramAdapter("fspchuv", 21, { pages: 1, now: new Date("2026-09-26") });
     const ev = await a.fetch();
-    expect(ev.map((e) => e.id)).toEqual(["region:tg-fspchuv:211", "region:tg-fspchuv:213"]);
+    // 213 — повтор анонса 211 (те же даты)
+    expect(ev.map((e) => e.id)).toEqual(["region:tg-fspchuv:211"]);
     expect(a.inScope({ id: "region:tg-fspchuv:200", source: "region" } as SportEvent)).toBe(true);
     expect(a.inScope({ id: "region:tg-fspchuv:12", source: "region" } as SportEvent)).toBe(false);
     expect(a.inScope({ id: "region:tg-other:200", source: "region" } as SportEvent)).toBe(false);
@@ -155,8 +167,98 @@ describe("интеграция", () => {
     expect(x.site).toBe("https://x.ru");
     expect(x.socials).toEqual(["https://t.me/fspsamara", "https://vk.com/fspsamara"]);
     const src = [{ regionCode: 63, site: null, telegram: ["a"], vk: ["b"] }];
-    expect(buildAdapters(src).map((a) => a.id)).toEqual(["tg-a"]);
+    expect(buildAdapters(src).map((a) => a.id)).toEqual(["foncode", "caplag", "tg-a"]);
     vi.stubEnv("VK_SERVICE_TOKEN", "t");
-    expect(buildAdapters(src).map((a) => a.id)).toEqual(["tg-a", "vk-b"]);
+    expect(buildAdapters(src).map((a) => a.id)).toEqual(["foncode", "caplag", "tg-a", "vk-b"]);
+  });
+});
+
+describe("субъект в тексте", () => {
+  it("падежи, сокращения, опечатки", () => {
+    const c = (t: string) => regionInText(t)?.code ?? null;
+    expect(c("Чемпионат Рязанской области")).toBe(62);
+    expect(c("Соревнования Республики Коми")).toBe(11);
+    expect(c("Комитет по спорту")).toBeNull();
+    expect(c("Открытый турнир СЗАО г. Москвы")).toBe(77);
+    expect(c("Кубок Московской области")).toBe(50);
+    expect(c("Кубок Донецкой Народной Республики")).toBe(80);
+    expect(c("Чемпионат Ханты-Мансийского автономного округа – Югры")).toBe(86);
+    expect(c("Отборочные соревнования Республики Дагенстан")).toBe(5);
+    expect(c("Сахалинская область")).toBe(65);
+    expect(c("Кубок Дальнего Востока")).toBeNull();
+    expect(c("Кубок Московского Политеха")).toBeNull();
+    expect(c("Чемпионат Хабаровского края")).toBe(27);
+    expect(c("Краевые соревнования Краснодарского края")).toBe(23);
+  });
+});
+
+describe("платформы", () => {
+  const ALG = "ПРОГРАММИРОВАНИЕ АЛГОРИТМИЧЕСКОЕ";
+  it("этапы → база названия", () => {
+    expect(stageBase("Чемпионат Рязанской области в дисциплине алгоритмическое программирование - Отборочный этап")).toBe(
+      "Чемпионат Рязанской области в дисциплине алгоритмическое программирование",
+    );
+    expect(stageBase("Финал Кубка Владимирской области")).toBe("Кубок Владимирской области");
+    expect(stageBase("Отборочный этап Чемпионата Республики Татарстан")).toBe("Чемпионат Республики Татарстан");
+    expect(stageBase("Отборочный этап Первенства Республики Татарстан")).toBe("Первенство Республики Татарстан");
+    expect(stageBase("Открытые соревнования Республики Коми &quot;Код Севера&quot; (студенты)")).toBe("Открытые соревнования Республики Коми Код Севера");
+  });
+
+  it("foncode: страница списка → региональные мероприятия, этапы склеены", () => {
+    const cs = parseFoncodePage(file("foncode-contests-p3.html"), ALG);
+    expect(cs.length).toBe(15);
+    expect(cs[0]).toMatchObject({ key: expect.stringMatching(/^\d+$/), dateFrom: expect.stringMatching(/^\d{4}-\d\d-\d\d$/) });
+    const ev = contestsToEvents("foncode", cs);
+    const names = ev.map((e) => `${e.regionCode} ${e.dateFrom}..${e.dateTo} ${e.name}`);
+    // всероссийские («Кубка России») и вузовские без субъекта отброшены
+    expect(names.join("\n")).not.toMatch(/России|Bauman/);
+    const vl = ev.find((e) => e.regionCode === 33)!;
+    expect(vl).toMatchObject({ name: "Кубок Владимирской области", dateFrom: "2026-03-07", dateTo: "2026-03-21", note: "Этапов на foncode: 2", disciplines: [ALG], organizer: "ФСП — Владимирская область" });
+    expect(ev.map((e) => e.regionCode)).toEqual([52, 63, 80, 33, 62]);
+    expect(ev.filter((e) => e.regionCode === 80)).toHaveLength(1);
+  });
+
+  it("foncode: адаптер листает до начала окна", async () => {
+    const html = file("foncode-contests-p3.html");
+    const f = vi.fn(async () => new Response(html));
+    vi.stubGlobal("fetch", f);
+    vi.stubGlobal("setTimeout", ((cb: () => void) => (cb(), 0)) as unknown as typeof setTimeout);
+    const a = foncodeAdapter({ now: new Date("2026-06-01"), sinceDays: 60 });
+    const ev = await a.fetch();
+    // на странице есть контесты старше окна — дальше не листаем ни в одном разделе
+    expect(f).toHaveBeenCalledTimes(2);
+    expect(ev.every((e) => e.dateFrom >= "2026-04-02")).toBe(true);
+    expect(a.inScope({ id: "region:foncode:1", dateFrom: "2026-05-01" } as SportEvent)).toBe(true);
+    expect(a.inScope({ id: "region:foncode:1", dateFrom: "2026-01-01" } as SportEvent)).toBe(false);
+  });
+
+  it("caplag: список и страница (JSON-LD, субъект по ссылке на группу)", async () => {
+    const slugs = parseCaplagList(file("caplag-competitions.html"));
+    expect(slugs).toContain("the-heart-of-sysola");
+    expect(slugs.length).toBe(7);
+    const c = parseCaplagPage(file("caplag-the-heart-of-sysola.html"), "the-heart-of-sysola", new Map([["fspkomi", 11]]))!;
+    expect(c).toMatchObject({ name: "Сердце Сысолы", dateFrom: "2026-08-08", dateTo: "2026-08-08", participants: 137, regionCode: 11 });
+    const [e] = contestsToEvents("caplag", [c]);
+    expect(e).toMatchObject({ id: "region:caplag:the-heart-of-sysola", region: "Республика Коми", disciplines: ["ПРОГРАММИРОВАНИЕ СИСТЕМ ИНФОРМАЦИОННОЙ БЕЗОПАСНОСТИ"] });
+    // без известной группы и без субъекта в названии — не региональное
+    expect(contestsToEvents("caplag", [{ ...c, regionCode: null }])).toEqual([]);
+  });
+
+  it("пост покрыт мероприятием платформы: субъект, ±14 дней, дисциплина", () => {
+    const p = [{ regionCode: 63, dateFrom: "2026-04-12", dateTo: "2026-04-12", disciplines: [ALG] }];
+    const e = (x: object) => ({ regionCode: 63, dateFrom: "2026-04-05", dateTo: "2026-04-05", disciplines: [], ...x }) as never;
+    expect(coveredBy(e({}), p)).toBe(true);
+    expect(coveredBy(e({ regionCode: 64 }), p)).toBe(false);
+    expect(coveredBy(e({ dateFrom: "2026-05-05" }), p)).toBe(false);
+    expect(coveredBy(e({ dateFrom: "2026-03-01", dateTo: "2026-04-12" }), p)).toBe(true);
+    expect(coveredBy(e({ disciplines: ["ПРОГРАММИРОВАНИЕ ПРОДУКТОВОЕ"] }), p)).toBe(false);
+  });
+
+  it("посты Самары, покрытые foncode, отсеиваются", () => {
+    const tg = postsToEvents("tg-fspsamara", 63, parseTelegramPage(file("tg-fspsamara.html")));
+    const plat = contestsToEvents("foncode", [
+      { key: "1", url: "u", name: "Чемпионат Самарской области по спортивному программированию", dateFrom: "2026-04-12", dateTo: "2026-04-12", description: "", isOnline: true, discipline: ALG },
+    ]);
+    expect(tg.filter((e) => !coveredBy(e, plat)).map((e) => e.id)).toEqual(["region:tg-fspsamara:591", "region:tg-fspsamara:604"]);
   });
 });

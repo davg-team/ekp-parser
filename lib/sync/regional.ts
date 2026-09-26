@@ -1,4 +1,5 @@
 import { buildAdapters, type RegionAdapter } from "../fsp/regional";
+import { coveredBy, isPlatformEvent } from "../fsp/regional/platform";
 import { vkEnabled } from "../fsp/regional/vk";
 import { mutate } from "../store";
 import type { SourceDoc } from "../types";
@@ -36,7 +37,11 @@ export async function syncRegional(now = new Date(), adapters?: RegionAdapter[])
 
   const summary = await mutate((ds) => {
     const res: Record<string, unknown> = {};
-    for (const { adapter: a, events, error } of outcomes) {
+    // платформы первыми (buildAdapters кладёт их в начало): посты о тех же мероприятиях дальше отсеиваются
+    const platform = () => ds.events.filter((e) => isPlatformEvent(e.id) && !e.removedAt);
+    for (const { adapter: a, events: raw, error } of outcomes) {
+      const covered = a.region == null ? [] : platform();
+      const events = raw?.filter((e) => !coveredBy(e, covered)) ?? null;
       const sourceId = `region:${a.id}`;
       ds.sources = ds.sources.filter((s) => s.id !== sourceId);
       const doc: SourceDoc = { id: sourceId, kind: "region", url: a.url, year: null, asOf: at.slice(0, 10), sha256: null, fetchedAt: at, status: error ? "error" : "ok", error, eventsCount: events?.length ?? null };

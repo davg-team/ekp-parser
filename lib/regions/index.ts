@@ -183,3 +183,42 @@ export function findRegion(text: string | null | undefined): Region | null {
   }
   return best;
 }
+
+// Поиск субъекта в свободном тексте в любом падеже («Рязанской области», «Республики Коми», «г. Москвы»).
+// «область» и «край» оставляем: без них «Московского Политеха» — это Московская область.
+const GENERIC = new Set(["РЕСПУБЛИКА", "АВТОНОМНЫЙ", "АВТОНОМНАЯ", "ОКРУГ", "Г", "ГОРОД", "НАРОДНАЯ"]);
+/** Основа слова: у прилагательных без окончания, у существительных без последней гласной; короткое слово — целиком (пробел в конце). */
+const stem = (w: string) =>
+  w === "КРАЙ" ? "КРА" : w.length <= 4 ? `${w} ` : w.replace(/(АЯ|ИЙ|ОЙ|ЫЙ)$/, "").replace(/[АЯЬЙОЕИЫ]$/, "");
+// Названия, которые не выводятся из официального (и опечатки на платформах).
+const TEXT_ALIASES: [string[], number][] = [
+  [["ЯКУТ"], 14], [["ТЫВ"], 17], [["ТУВ"], 17], [["УДМУРТ"], 18], [["ЧУВАШ"], 21], [["ТАТАРСТАН"], 16],
+  [["БАШКОРТОСТАН"], 2], [["БАШКИР"], 2], [["ДАГЕСТАН"], 5], [["ДАГЕНСТАН"], 5], [["ЮГР"], 86], [["ХМАО "], 86],
+  [["КУЗБАС"], 42], [["ДНР "], 80], [["ЛНР "], 81], [["ЯНАО "], 89], [["КРЫМ"], 91], [["СЕВЕРН", "ОСЕТИ"], 15],
+];
+const STEMS: [string[], number][] = [
+  ...REGIONS.map((r): [string[], number] => [
+    regionKey(r.name.split(/\s+[—–]\s+/)[0])
+      .split(" ")
+      .filter((w) => w && !GENERIC.has(w))
+      .map(stem),
+    r.code,
+  ]),
+  ...TEXT_ALIASES,
+];
+
+/** Субъект, упомянутый в тексте: все основы названия встречаются как начала слов. Самое длинное совпадение. */
+export function regionInText(text: string | null | undefined): Region | null {
+  if (!text) return null;
+  const words = ` ${text.toUpperCase().replace(/Ё/g, "Е").replace(/[^А-ЯA-Z0-9]+/g, " ")} `;
+  let best: Region | null = null;
+  let bestLen = 0;
+  for (const [stems, code] of STEMS) {
+    const len = stems.join("").trim().length;
+    if (len > bestLen && stems.every((s) => words.includes(` ${s}`))) {
+      best = byCode.get(code)!;
+      bestLen = len;
+    }
+  }
+  return best;
+}

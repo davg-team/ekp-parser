@@ -1,14 +1,18 @@
 import type { Incoming } from "../../sync/merge";
-import { regionByCode } from "../../regions";
+import { regionByCode, regionInText } from "../../regions";
 import { findDates } from "./dates";
 import { eventId, type Post } from "./types";
 
 // Отбор постов: только про соревнования. \b в JS не работает с кириллицей — границы слов через lookaround.
 const KEYWORDS = /соревновани|чемпионат|первенств|кубок|турнир|хакатон|олимпиад|контест|\bctf\b|лиг[аеиу](?![а-яё])/i;
 // Всероссийские и международные анонсы, которые отделения репостят: они уже есть в ЕКП и календаре ФСП.
-const FEDERAL = /(чемпионат\S*|первенств\S*|кубк?\S*)\s+(и\s+первенств\S*\s+)?росси|всероссийск|международн|кубк?\S*\s+федерации|федеральн\S+\s+округ|цифровой атом|рукод|российск\S*\s+хакатон|лидеры цифровой|чемпионат\S*\s+мира|национальн\S*\s+технологическ|межрегиональн/i;
+export const FEDERAL = /(чемпионат\S*|первенств\S*|кубк?\S*)\s+(и\s+первенств\S*\s+)?росси|всероссийск|международн|кубк?\S*\s+федерации|федеральн\S+\s+округ|цифровой атом|рукод|российск\S*\s+хакатон|лидеры цифровой|чемпионат\S*\s+мира|национальн\S*\s+технологическ|межрегиональн/i;
 // Признаки регионального мероприятия (ищем в названии).
 const REGIONAL = /област|кра[яйе](?![а-яё])|республик|чуваш|татарстан|региональн|городск|города(?![а-яё])|муниципальн|открыт\S*\s+(турнир|кубок|чемпионат)|хакатон/i;
+// Соревнования на платформах берём из их адаптеров (foncode.ts, caplag.ts), посты о них — анонсы и репосты.
+const PLATFORM = /caplag|foncode/i;
+// Пост с итогами уже прошедшего мероприятия.
+const RESULTS = /^(результат|итог|определены|подвели|поздравляем|завершил|прош[её]л|состоял)/i;
 // Не спортивное программирование.
 const OFFTOPIC = /dota|counter-strike|\bcs2?\b|киберспорт|шахмат|pinned «/i;
 
@@ -45,18 +49,24 @@ export function titleOf(text: string): string | null {
     .split("\n")
     .map((l) => l.replace(/[\p{Extended_Pictographic}\p{Emoji_Presentation}\u{FE0F}\u{200D}*]|(?<!\S)#\S+/gu, "").replace(/\s+/g, " ").trim())
     .filter((l) => l.length >= 8)
-    // заголовок анонса — в первых строках; ключевое слово глубже в тексте — не анонс
+    // заголовок анонса — в первых строках; ключевое слово глубже в тексте или в конце длинного абзаца — не анонс
     .slice(0, 3)
-    .find((l) => KEYWORDS.test(l));
+    .find((l) => {
+      const i = l.search(KEYWORDS);
+      return i >= 0 && i < 120;
+    });
   return line ? line.slice(0, 200).replace(/[\s.:!,;—-]+$/, "") : null;
 }
 
 const within = (a: string, b: string, days: number) => Math.abs(Date.parse(a) - Date.parse(b)) <= days * 86_400_000;
 
-/** Извлечение правилами: одно мероприятие на пост, первая дата в тексте. */
-export function extractByRules(p: Post): Extracted[] {
+/** Извлечение правилами: одно мероприятие на пост, первая дата в тексте. regionCode — субъект канала. */
+export function extractByRules(p: Post, regionCode?: number): Extracted[] {
   const name = titleOf(p.text);
-  if (!name || OFFTOPIC.test(p.text)) return [];
+  if (!name || OFFTOPIC.test(p.text) || PLATFORM.test(p.text)) return [];
+  // в названии другой субъект — репост соседей
+  const named = regionInText(name);
+  if (regionCode && named && named.code !== regionCode) return [];
   // всероссийское в названии — репост; в тексте — только если название не региональное
   if (FEDERAL.test(name) || (FEDERAL.test(p.text) && !REGIONAL.test(name))) return [];
   const d = findDates(p.text, p.date).find((x) => within(x.dateFrom, p.date, 400));
@@ -75,16 +85,18 @@ export function extractByRules(p: Post): Extracted[] {
   ];
 }
 
-/** Посты → записи. Повторы внутри источника (анонс, итоги) склеиваются по датам. */
+/** Посты → записи. Повторы внутри источника (анонс, итоги) склеиваются по датам и дисциплинам. */
 export function postsToEvents(adapter: string, regionCode: number, posts: Post[]): Incoming[] {
   const out: Incoming[] = [];
-  const seenDates = new Set<string>();
   // старые посты первыми: запись привязывается к первому анонсу
   for (const p of [...posts].sort((a, b) => a.seq - b.seq)) {
-    extractByRules(p).forEach((e, i) => {
-      const k = `${e.dateFrom}/${e.dateTo}`;
-      if (seenDates.has(k)) return;
-      seenDates.add(k);
+    extractByRules(p, regionCode).forEach((e, i) => {
+      // итоги — не новое мероприятие; повтор анонса — начало в пределах 3 дней при тех же дисциплинах
+      if (RESULTS.test(e.name)) return;
+      const dup = out.some(
+        (x) => within(x.dateFrom, e.dateFrom, 3) && (!x.disciplines.length || !e.disciplines.length || x.disciplines.some((d) => e.disciplines.includes(d))),
+      );
+      if (dup) return;
       out.push(toIncoming(adapter, regionCode, p, e, i));
     });
   }

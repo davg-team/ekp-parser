@@ -1,5 +1,7 @@
 import sources from "../../../data/regional-sources.json";
 import type { Federation } from "../../types";
+import { caplagAdapter } from "./caplag";
+import { foncodeAdapter } from "./foncode";
 import { telegramAdapter } from "./telegram";
 import type { RegionAdapter } from "./types";
 import { vkAdapter, vkEnabled } from "./vk";
@@ -20,9 +22,14 @@ export function withSources(feds: Federation[], list = REGIONAL_SOURCES): Federa
   });
 }
 
-/** Адаптеры: Telegram — всегда, VK — при наличии VK_SERVICE_TOKEN. */
+/** Имя канала или группы отделения → код субъекта. */
+export function groupRegions(list = REGIONAL_SOURCES): Map<string, number> {
+  return new Map(list.flatMap((s) => [...s.telegram, ...s.vk].map((g): [string, number] => [g.toLowerCase(), s.regionCode])));
+}
+
+/** Адаптеры: сначала платформы (foncode, caplag), затем Telegram, VK — при наличии VK_SERVICE_TOKEN. */
 export function buildAdapters(list = REGIONAL_SOURCES): RegionAdapter[] {
-  const out: RegionAdapter[] = [];
+  const out: RegionAdapter[] = [foncodeAdapter(), caplagAdapter(groupRegions(list))];
   for (const s of list) {
     for (const c of s.telegram) out.push(telegramAdapter(c, s.regionCode));
     if (vkEnabled()) for (const v of s.vk) out.push(vkAdapter(v, s.regionCode));
