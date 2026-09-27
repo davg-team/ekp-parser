@@ -12,6 +12,9 @@ import { regionInText } from "../lib/regions";
 import { contestsToEvents, coveredBy, stageBase } from "../lib/fsp/regional/platform";
 import { foncodeAdapter, parseFoncodePage } from "../lib/fsp/regional/foncode";
 import { caplagAdapter, parseCaplagList, parseCaplagPage } from "../lib/fsp/regional/caplag";
+import { moisportAdapter, msToIncoming, splitLocation, type MsEvent } from "../lib/fsp/regional/moisport";
+import { linkEvents } from "../lib/sync/link";
+import { ocrLayout, planDates, planRows, planToEvents } from "../lib/fsp/regional/plan-parse";
 import type { Federation, SportEvent } from "../lib/types";
 
 const file = (n: string) => readFileSync(`fixtures/${n}`, "utf8");
@@ -91,7 +94,7 @@ describe("Telegram", () => {
     const html = file("tg-fspchuv.html");
     vi.stubGlobal("fetch", vi.fn(async () => new Response(html)));
     const a = telegramAdapter("fspchuv", 21, { pages: 1, now: new Date("2026-09-26") });
-    const ev = await a.fetch();
+    const ev = (await a.fetch())!;
     // 213 — повтор анонса 211 (те же даты)
     expect(ev.map((e) => e.id)).toEqual(["region:tg-fspchuv:211"]);
     expect(a.inScope({ id: "region:tg-fspchuv:200", source: "region" } as SportEvent)).toBe(true);
@@ -127,7 +130,7 @@ describe("VK", () => {
     vi.stubEnv("VK_SERVICE_TOKEN", "test");
     stubVk();
     const a = vkAdapter("fspsamara", 63);
-    const ev = await a.fetch();
+    const ev = (await a.fetch())!;
     expect(ev.map((e) => [e.id, e.dateFrom])).toEqual([
       ["region:vk-fspsamara:191", "2026-02-22"],
       ["region:vk-fspsamara:200", "2026-04-12"],
@@ -167,9 +170,9 @@ describe("интеграция", () => {
     expect(x.site).toBe("https://x.ru");
     expect(x.socials).toEqual(["https://t.me/fspsamara", "https://vk.com/fspsamara"]);
     const src = [{ regionCode: 63, site: null, telegram: ["a"], vk: ["b"] }];
-    expect(buildAdapters(src).map((a) => a.id)).toEqual(["foncode", "caplag", "tg-a"]);
+    expect(buildAdapters(src, []).map((a) => a.id)).toEqual(["moisport", "foncode", "caplag", "tg-a"]);
     vi.stubEnv("VK_SERVICE_TOKEN", "t");
-    expect(buildAdapters(src).map((a) => a.id)).toEqual(["foncode", "caplag", "tg-a", "vk-b"]);
+    expect(buildAdapters(src, []).map((a) => a.id)).toEqual(["moisport", "foncode", "caplag", "tg-a", "vk-b"]);
   });
 });
 
@@ -224,7 +227,7 @@ describe("платформы", () => {
     vi.stubGlobal("fetch", f);
     vi.stubGlobal("setTimeout", ((cb: () => void) => (cb(), 0)) as unknown as typeof setTimeout);
     const a = foncodeAdapter({ now: new Date("2026-06-01"), sinceDays: 60 });
-    const ev = await a.fetch();
+    const ev = (await a.fetch())!;
     // на странице есть контесты старше окна — дальше не листаем ни в одном разделе
     expect(f).toHaveBeenCalledTimes(2);
     expect(ev.every((e) => e.dateFrom >= "2026-04-02")).toBe(true);
@@ -260,5 +263,120 @@ describe("платформы", () => {
       { key: "1", url: "u", name: "Чемпионат Самарской области по спортивному программированию", dateFrom: "2026-04-12", dateTo: "2026-04-12", description: "", isOnline: true, discipline: ALG },
     ]);
     expect(tg.filter((e) => !coveredBy(e, plat)).map((e) => e.id)).toEqual(["region:tg-fspsamara:591", "region:tg-fspsamara:604"]);
+  });
+});
+
+describe("«Мой спорт»", () => {
+  const card = JSON.parse(file("moisport-event-182519.json")) as MsEvent;
+  it("карточка → запись с организатором и ответственным", () => {
+    expect(msToIncoming({ ...card, id: "182519" })).toMatchObject({
+      id: "region:moisport:182519",
+      level: "Региональные",
+      region: "Калининградская область",
+      regionCode: 39,
+      city: "Калининград",
+      dateFrom: "2026-06-01",
+      dateTo: "2026-12-31",
+      organizer: expect.stringMatching(/Федерация спортивного программирования» по Калининградской области/),
+      note: "Спортивное соревнование субъекта РФ. Ответственный: Дубинин Иван Витальевич",
+      url: "https://org.moisport.ru/public-events-schedule/182519",
+    });
+  });
+  it("место и заглушки", () => {
+    expect(splitLocation("Спортивный комплекс ЧГУ, г. Чебоксары, ул. Университетская 38.")).toEqual({ city: "Чебоксары", venue: "Спортивный комплекс ЧГУ, г. Чебоксары, ул. Университетская 38." });
+    expect(splitLocation("г. Липецк")).toEqual({ city: "Липецк", venue: null });
+    expect(splitLocation("По назначению")).toEqual({ city: null, venue: null });
+    expect(msToIncoming({ ...card, id: "1", responsibleStaff: ["админ админ"] })!.note).toBe("Спортивное соревнование субъекта РФ");
+  });
+  it("УТМ и всероссийские отбрасываются", () => {
+    expect(msToIncoming({ ...card, id: "1", name: "УТМ (КМО)" })).toBeNull();
+    expect(msToIncoming({ ...card, id: "1", name: "Кубок Федерации спортивного программирования России (отборочный этап)" })).toBeNull();
+  });
+  it("адаптер: список, карточки только новых", async () => {
+    const list = file("moisport-list.json");
+    const calls: string[] = [];
+    vi.stubGlobal("fetch", vi.fn(async (url: string) => {
+      calls.push(url);
+      if (url.includes("?")) return new Response(list);
+      const id = url.split("/").pop()!;
+      const item = JSON.parse(list).items.find((x: { id: string }) => x.id === id);
+      return new Response(JSON.stringify({ ...card, ...item, id: Number(id) }));
+    }));
+    const a = moisportAdapter({ now: new Date("2026-09-26"), pauseMs: 0 });
+    const ev = (await a.fetch())!;
+    const details = calls.filter((u) => !u.includes("?")).length;
+    expect(details).toBe(12);
+    // УТМ (2) и Кубок ФСП отброшены
+    expect(ev).toHaveLength(9);
+    // второй прогон с датасетом: карточки не качаются
+    const now = "2026-09-26T00:00:00Z";
+    a.prime!(ev.map((e) => ({ ...e, firstSeenAt: now, lastSeenAt: now, removedAt: null, linkedId: null, sourceId: null })));
+    calls.length = 0;
+    expect(await a.fetch()).toHaveLength(9);
+    expect(calls.filter((u) => !u.includes("?")).length).toBe(3);
+  });
+  it("пост отделения связывается с записью плана субъекта", () => {
+    const ds = emptyDataset();
+    const base = { source: "region", removedAt: null, linkedId: null, regionCode: 39, level: "Региональные", disciplines: [], isOnline: false } as unknown as SportEvent;
+    ds.events.push(
+      { ...base, id: "region:moisport:1", dateFrom: "2026-06-01", dateTo: "2026-12-31" },
+      { ...base, id: "region:tg-fsp_kld:5", dateFrom: "2026-10-10", dateTo: "2026-10-11" },
+      { ...base, id: "region:tg-other:5", regionCode: 63, dateFrom: "2026-10-10", dateTo: "2026-10-11" },
+    );
+    linkEvents(ds);
+    expect(ds.events.map((e) => e.linkedId)).toEqual([null, "region:moisport:1", null]);
+  });
+});
+
+describe("календарный план субъекта (текст PDF)", () => {
+  it("даты: месяц, диапазон дней, числами, туры", () => {
+    expect(planDates("март", 2026)).toEqual({ dateFrom: "2026-03-01", dateTo: "2026-03-31" });
+    expect(planDates("12-14 марта", 2026)).toEqual({ dateFrom: "2026-03-12", dateTo: "2026-03-14" });
+    expect(planDates("15.03.2026 - 17.03.2026", 2026)).toEqual({ dateFrom: "2026-03-15", dateTo: "2026-03-17" });
+    expect(planDates("тур 1 – март тур 3 – апрель", 2026)).toEqual({ dateFrom: "2026-03-01", dateTo: "2026-04-30" });
+    expect(planDates("по назначению", 2026)).toBeNull();
+  });
+
+  it("Саратов: раздел вида спорта, перенос ячеек, разрыв страницы, всероссийские отброшены", () => {
+    const t = file("plan-saratov-2026.txt");
+    expect(planRows(t).map((r) => r.no)).toEqual([1, 2, 3, 4, 5, 6, 7]);
+    const ev = planToEvents(t, { regionCode: 64, year: 2026, url: "u", key: "plan-64-2026" });
+    expect(ev).toHaveLength(6);
+    expect(ev.map((e) => e.name)).not.toContain(expect.stringMatching(/Всероссийск/));
+    expect(ev.find((e) => /алгоритмическое/.test(e.name))).toMatchObject({
+      name: "Чемпионат Саратовской области в дисциплине «алгоритмическое программирование»",
+      dateFrom: "2026-03-01",
+      dateTo: "2026-03-31",
+      city: "Саратов",
+      participants: 70,
+      region: "Саратовская область",
+      disciplines: ["ПРОГРАММИРОВАНИЕ АЛГОРИТМИЧЕСКОЕ"],
+      id: expect.stringMatching(/^region:plan-64-2026:2026-[0-9a-f]{8}$/),
+    });
+    // соседний раздел (спортивный туризм) не захвачен
+    expect(ev.some((e) => /пешеходн/.test(e.name))).toBe(false);
+  });
+
+  it("скан: TSV Tesseract → колонки → те же мероприятия, что в текстовом PDF", () => {
+    const text = [file("ocr-saratov-p61.tsv"), file("ocr-saratov-p62.tsv")].map(ocrLayout).join("\f");
+    const ocr = planToEvents(text, { regionCode: 64, year: 2026, url: "u", key: "plan-64-2026" });
+    const pdf = planToEvents(file("plan-saratov-2026.txt"), { regionCode: 64, year: 2026, url: "u", key: "plan-64-2026" });
+    const pick = (e: { name: string; dateFrom: string; dateTo: string; city: string | null }) => [e.name, e.dateFrom, e.dateTo, e.city];
+    expect(ocr.map(pick)).toEqual(pdf.map(pick));
+    // id по названию и сроку — совпадают, скан и текст дают одни записи
+    expect(ocr.map((e) => e.id)).toEqual(pdf.map((e) => e.id));
+  });
+
+  it("Дагестан: номер «395 1», наименование центрировано по вертикали, город отдельной ячейкой", () => {
+    const ev = planToEvents(file("plan-dagestan-2026.txt"), { regionCode: 5, year: 2026, url: "u", key: "plan-5-2026" });
+    // три чемпионата России в разделе отброшены
+    expect(ev.map((e) => e.name)).toEqual([
+      "Чемпионат Республики Дагестан в дисциплине «программирование алгоритмическое»",
+      "Чемпионат Республики Дагестан в дисциплине «программирование систем информационной безопасности»",
+      "Чемпионат Республики Дагестан в дисциплине «программирование продуктовое»",
+      "Первенстко Республики Дагестан в дисциплине «программирование систем информационной безопасности»",
+      "Первенстко Республики Дагестан в дисциплине «программирование алгоритмическое»",
+    ]);
+    expect(ev[0]).toMatchObject({ city: "Махачкала", participants: 50, dateFrom: "2026-09-01", dateTo: "2026-09-30" });
   });
 });

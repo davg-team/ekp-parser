@@ -1,0 +1,262 @@
+{
+ "items": [
+  {
+   "id": "198146",
+   "name": "УТМ (КМО)",
+   "stageName": null,
+   "locationRegion": "Липецкая область",
+   "startDate": "2026-01-01",
+   "endDate": "2026-12-31",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "Approved",
+   "isOfficial": true,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "200046",
+   "name": "Учебно-тренировочные мероприятия",
+   "stageName": null,
+   "locationRegion": "Новосибирская область",
+   "startDate": "2026-01-01",
+   "endDate": "2026-12-31",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "PendingInclusion",
+   "isOfficial": false,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "182520",
+   "name": "Первенство Калининградской области по спортивному программированию",
+   "stageName": null,
+   "locationRegion": "Калининградская область",
+   "startDate": "2026-06-01",
+   "endDate": "2026-12-31",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "Approved",
+   "isOfficial": true,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "182519",
+   "name": "Чемпионат Калининградской области по спортивному программированию",
+   "stageName": null,
+   "locationRegion": "Калининградская область",
+   "startDate": "2026-06-01",
+   "endDate": "2026-12-31",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "Approved",
+   "isOfficial": true,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "242998",
+   "name": "Кубок Федерации спортивного программирования России (отборочный этап среди округов)",
+   "stageName": null,
+   "locationRegion": "Ивановская область",
+   "startDate": "2026-09-01",
+   "endDate": "2026-09-30",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "Approved",
+   "isOfficial": true,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "203068",
+   "name": "Чемпионат Республики Дагестан в дисциплине \"программирование алгоритмическое \"",
+   "stageName": null,
+   "locationRegion": "Республика Дагестан",
+   "startDate": "2026-09-01",
+   "endDate": "2026-09-30",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "Approved",
+   "isOfficial": true,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "203070",
+   "name": "Чемпионат Республики Дагестан в дисциплине  \"программирование продуктовое \"",
+   "stageName": null,
+   "locationRegion": "Республика Дагестан",
+   "startDate": "2026-09-01",
+   "endDate": "2026-09-30",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "Approved",
+   "isOfficial": true,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "203069",
+   "name": "Чемпионат Республики Дагестан в дисциплине  \"программирование систем информационной безопасности\"",
+   "stageName": null,
+   "locationRegion": "Республика Дагестан",
+   "startDate": "2026-09-01",
+   "endDate": "2026-09-30",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "Approved",
+   "isOfficial": true,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "198145",
+   "name": "Первенство Липецкой области",
+   "stageName": null,
+   "locationRegion": "Липецкая область",
+   "startDate": "2026-09-01",
+   "endDate": "2026-10-31",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "Approved",
+   "isOfficial": true,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "200044",
+   "name": "Первенство Новосибирской области",
+   "stageName": null,
+   "locationRegion": "Новосибирская область",
+   "startDate": "2026-09-01",
+   "endDate": "2026-10-31",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "PendingInclusion",
+   "isOfficial": false,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "200045",
+   "name": "Чемпионат Новосибирской области",
+   "stageName": null,
+   "locationRegion": "Новосибирская область",
+   "startDate": "2026-09-01",
+   "endDate": "2026-10-31",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "PendingInclusion",
+   "isOfficial": false,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  },
+  {
+   "id": "198147",
+   "name": "Межрегиональный фестиваль по спортивному программированию\n«КиберПеремена»",
+   "stageName": null,
+   "locationRegion": "Липецкая область",
+   "startDate": "2026-09-01",
+   "endDate": "2026-11-30",
+   "sportsmanAgeFrom": null,
+   "sportsmanAgeTo": null,
+   "sportsmanSex": [
+    "Male",
+    "Female"
+   ],
+   "sportType": "Спортивное программирование",
+   "officialStatus": "Approved",
+   "isOfficial": true,
+   "hasResults": false,
+   "scheduleStatus": "Active",
+   "canCreate": false,
+   "structureType": "Standard"
+  }
+ ],
+ "pageSize": 100,
+ "pageNumber": 1,
+ "totalItemCount": 12,
+ "totalPageCount": 1,
+ "firstItemOnPage": 1,
+ "lastItemOnPage": 12
+}

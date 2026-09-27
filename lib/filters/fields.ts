@@ -42,7 +42,7 @@ export const FIELDS: FieldDef[] = [
   { key: "squad", label: "Состав", type: "enum", get: (e) => e.squad },
   { key: "note", label: "Примечание", type: "text", get: (e) => e.note },
   { key: "organizer", label: "Организатор", type: "text", get: (e) => e.organizer },
-  { key: "linked", label: "Есть в ЕКП и ФСП", type: "bool", get: (e) => !!e.linkedId },
+  { key: "linked", label: "Есть связанная запись (ЕКП или план субъекта)", type: "bool", get: (e) => !!e.linkedId },
   { key: "firstSeenAt", label: "Впервые найдено", type: "date", get: (e) => e.firstSeenAt.slice(0, 10) },
   { key: "ekpId", label: "№ СМ в ЕКП", type: "text", get: (e) => e.ekpId },
 ];

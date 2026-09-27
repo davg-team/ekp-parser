@@ -1,14 +1,15 @@
 import { buildAdapters, type RegionAdapter } from "../fsp/regional";
 import { coveredBy, isPlatformEvent } from "../fsp/regional/platform";
 import { vkEnabled } from "../fsp/regional/vk";
-import { mutate } from "../store";
+import { mutate, readDataset } from "../store";
 import type { SourceDoc } from "../types";
 import { linkEvents } from "./link";
 import { mergeSnapshot, type Incoming } from "./merge";
 
 const ADAPTER_TIMEOUT = 60_000;
 // Синк идёт в GitHub Actions (timeout-minutes: 30 в sync.yml); ЕКП и ФСП занимают ~1 мин.
-const TOTAL_BUDGET = 15 * 60_000;
+// Первый прогон «Мой спорт» качает ~300 карточек (~4 мин), дальше — только новые.
+const TOTAL_BUDGET = 20 * 60_000;
 
 function withTimeout<T>(p: Promise<T>, ms: number, what: string): Promise<T> {
   let t: NodeJS.Timeout;
@@ -22,6 +23,8 @@ export async function syncRegional(now = new Date(), adapters?: RegionAdapter[])
   const at = now.toISOString();
   const t0 = Date.now();
   const list = adapters ?? buildAdapters();
+  const before = await readDataset();
+  for (const a of list) a.prime?.(before.events, before.sources);
   const outcomes: Outcome[] = [];
   for (const a of list) {
     if (Date.now() - t0 > TOTAL_BUDGET) {
@@ -29,7 +32,7 @@ export async function syncRegional(now = new Date(), adapters?: RegionAdapter[])
       continue;
     }
     try {
-      outcomes.push({ adapter: a, events: await withTimeout(a.fetch(), ADAPTER_TIMEOUT, a.id), error: null });
+      outcomes.push({ adapter: a, events: await withTimeout(a.fetch(), a.timeoutMs ?? ADAPTER_TIMEOUT, a.id), error: null });
     } catch (e) {
       outcomes.push({ adapter: a, events: null, error: (e as Error).message });
     }
@@ -40,12 +43,30 @@ export async function syncRegional(now = new Date(), adapters?: RegionAdapter[])
     // платформы первыми (buildAdapters кладёт их в начало): посты о тех же мероприятиях дальше отсеиваются
     const platform = () => ds.events.filter((e) => isPlatformEvent(e.id) && !e.removedAt);
     for (const { adapter: a, events: raw, error } of outcomes) {
-      const covered = a.region == null ? [] : platform();
+      // отсев «уже есть на платформе» — только для постов каналов и групп
+      const covered = /^(tg|vk)-/.test(a.id) ? platform() : [];
       const events = raw?.filter((e) => !coveredBy(e, covered)) ?? null;
       const sourceId = `region:${a.id}`;
+      const prev = ds.sources.find((s) => s.id === sourceId);
       ds.sources = ds.sources.filter((s) => s.id !== sourceId);
-      const doc: SourceDoc = { id: sourceId, kind: "region", url: a.url, year: null, asOf: at.slice(0, 10), sha256: null, fetchedAt: at, status: error ? "error" : "ok", error, eventsCount: events?.length ?? null };
+      const unchanged = !error && !events;
+      const doc: SourceDoc = {
+        id: sourceId,
+        kind: "region",
+        url: a.url,
+        year: null,
+        asOf: at.slice(0, 10),
+        sha256: a.sha256 ?? null,
+        fetchedAt: at,
+        status: error ? "error" : "ok",
+        error,
+        eventsCount: unchanged ? (prev?.eventsCount ?? null) : (events?.length ?? null),
+      };
       ds.sources.push(doc);
+      if (unchanged) {
+        res[a.id] = "без изменений";
+        continue;
+      }
       if (!events) {
         res[a.id] = { failed: error };
         continue;

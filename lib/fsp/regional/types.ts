@@ -1,5 +1,5 @@
 import type { Incoming } from "../../sync/merge";
-import type { SportEvent } from "../../types";
+import type { SourceDoc, SportEvent } from "../../types";
 
 /** Пост из канала или группы отделения. */
 export type Post = {
@@ -14,12 +14,19 @@ export type Post = {
 };
 
 export interface RegionAdapter {
-  /** tg-<канал> / vk-<группа> / foncode / caplag */
+  /** tg-<канал> / vk-<группа> / moisport / foncode / caplag */
   id: string;
   /** код субъекта; null — платформа со всеми субъектами */
   region: number | null;
   url: string;
-  fetch(): Promise<Incoming[]>;
+  /** null — источник не изменился с прошлого синка (записи не трогаем) */
+  fetch(): Promise<Incoming[] | null>;
+  /** sha256 документа-источника после fetch (для кэша) */
+  sha256?: string | null;
+  /** таймаут fetch, если нужен больше общего */
+  timeoutMs?: number;
+  /** записи датасета до синка (кэш между запусками) */
+  prime?(events: SportEvent[], sources?: SourceDoc[]): void;
   /** Записи этого адаптера, которые покрыл последний fetch (по окну просмотренных постов). */
   inScope(e: SportEvent): boolean;
 }

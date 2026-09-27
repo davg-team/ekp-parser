@@ -78,7 +78,7 @@ export function EventsTable({ items, sort, onSort, today }: { items: EventRow[];
             <div style={{ display: "flex", gap: 4, flexWrap: "wrap", marginTop: 4 }}>
               <Label size="xs" theme="utility">{e.level}</Label>
               <Label size="xs" theme={e.source === "ekp" ? "clear" : e.source === "fsp" ? "warning" : "info"}>{SOURCE_LABEL[e.source]}</Label>
-              {e.linkedId && <Label size="xs" theme="clear">ЕКП+ФСП</Label>}
+              {e.linkedId && <Label size="xs" theme="clear">{e.linkedId.startsWith("region:moisport:") ? "в плане субъекта" : "ЕКП+ФСП"}</Label>}
             </div>
             {e.note && <Text variant="caption-2" color="secondary">{e.note}</Text>}
           </div>
