@@ -5,7 +5,7 @@ import { AsideHeader, FooterItem, MobileHeader } from "@gravity-ui/navigation";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useThemeMode } from "./Providers";
-import { logout as logoutLocal } from "@/lib/client/data";
+import { isProtected, logout as logoutLocal } from "@/lib/client/data";
 
 const NAV = [
   { id: "events", title: "Мероприятия", icon: Calendar, path: "/", match: (p: string) => p === "/" || p.startsWith("/event") },
@@ -31,6 +31,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const { theme, toggle } = useThemeMode();
   const [compact, setCompact] = useState(false);
   const isMobile = useIsMobile();
+  // «Выйти» — только когда данные зашифрованы паролем
+  const [locked, setLocked] = useState(false);
+  useEffect(() => {
+    isProtected().then(setLocked, () => setLocked(false));
+  }, []);
 
   if (pathname.startsWith("/login")) return <>{children}</>;
 
@@ -50,7 +55,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             ...NAV.map((n) => ({ id: n.id, title: n.title, icon: n.icon, current: n.match(pathname), closeMenuOnClick: true, onItemClick: () => router.push(n.path) })),
             { id: "div", title: "", type: "divider" as const },
             { ...themeItem, closeMenuOnClick: false },
-            { id: "logout", title: "Выйти", icon: ArrowRightFromSquare, closeMenuOnClick: true, onItemClick: logout },
+            ...(locked ? [{ id: "logout", title: "Выйти", icon: ArrowRightFromSquare, closeMenuOnClick: true, onItemClick: logout }] : []),
           ],
         }}
         renderContent={() => <div className="app-content app-content_mobile">{children}</div>}
@@ -69,7 +74,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       renderFooter={() => (
         <>
           <FooterItem compact={compact} {...themeItem} />
-          <FooterItem compact={compact} id="logout" title="Выйти" icon={ArrowRightFromSquare} onItemClick={logout} />
+          {locked && <FooterItem compact={compact} id="logout" title="Выйти" icon={ArrowRightFromSquare} onItemClick={logout} />}
         </>
       )}
     />
