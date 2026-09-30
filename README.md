@@ -26,9 +26,9 @@ Next.js 16 + Gravity UI, собранный статически (`output: "expo
 - **Парсинг — в GitHub Actions** (`.github/workflows/sync.yml`, ежедневно в 06:00 МСК и вручную
   «Run workflow»): `pnpm sync` обновляет `data/dataset.json` и коммитит его в `main`.
 - **Сайт** (`.github/workflows/pages.yml`) пересобирается после каждого синка и пуша в `main`:
-  `scripts/build-data.ts` шифрует датасет паролем `DATA_PASSWORD` (PBKDF2 + AES-GCM) в `public/data.enc`,
-  браузер скачивает его целиком, расшифровывает после ввода пароля и сам считает фильтры,
-  сортировку и CSV (`lib/client/api.ts`). Пароль защищает от случайных глаз, а не от целевой атаки.
+  `scripts/build-data.ts` кладёт датасет в `public/data.json`, браузер скачивает его целиком и сам считает
+  фильтры, сортировку и CSV (`lib/client/api.ts`). Сайт открытый: репозиторий публичный, датасет и так виден.
+  Шифрование паролем осталось как опция при локальной сборке: `DATA_PASSWORD=… pnpm build` → `public/data.enc`.
 - Представления (сохранённые фильтры) хранятся в `localStorage` браузера.
 
 Данных — сотни записей, поэтому весь датасет — один JSON, отдельная БД не нужна. История изменений
@@ -36,10 +36,8 @@ Next.js 16 + Gravity UI, собранный статически (`output: "expo
 
 ## Настройка репозитория (один раз)
 
-1. Settings → Pages → Source: **GitHub Actions**. Для приватного репозитория нужен платный план;
-   сайт на Pages всё равно публичный — поэтому данные зашифрованы.
-2. Settings → Secrets → Actions: `DATA_PASSWORD` — пароль входа на сайт (обязателен: без него
-   `pages.yml` падает, чтобы не опубликовать данные открытыми); `VK_SERVICE_TOKEN` — по желанию.
+1. Settings → Pages → Source: **GitHub Actions**.
+2. Settings → Secrets → Actions: `VK_SERVICE_TOKEN` — по желанию.
 3. Actions → Sync → Run workflow — первый синк; сайт соберётся следом.
 
 ## Локально
@@ -56,7 +54,7 @@ pnpm test
 (в Actions ставятся через apt).
 За HTTP-прокси нужен `NODE_USE_ENV_PROXY=1`: `fetch` в Node сам `HTTPS_PROXY` не читает.
 `pnpm sync ekp --force` — перепарсить ЕКП даже без новой версии.
-`DATA_PASSWORD=… pnpm build && pnpm preview` — собрать сайт как на Pages (в `out/`).
+`pnpm build && pnpm preview` — собрать сайт как на Pages (в `out/`).
 
 ## Фильтры
 

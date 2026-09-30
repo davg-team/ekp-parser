@@ -1,7 +1,6 @@
 name: Pages
 
-# Статический сайт на GitHub Pages: next export + данные из data/dataset.json,
-# зашифрованные паролем DATA_PASSWORD (секрет репозитория).
+# Статический сайт на GitHub Pages: next export + данные из data/dataset.json (открыто, без пароля).
 
 on:
   push:
@@ -37,12 +36,9 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Build
         env:
-          DATA_PASSWORD: ${{ secrets.DATA_PASSWORD }}
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
           NEXT_PUBLIC_REPO: ${{ github.repository }}
-        run: |
-          if [ -z "$DATA_PASSWORD" ]; then echo "::error::не задан секрет DATA_PASSWORD — данные ушли бы на сайт открытыми"; exit 1; fi
-          pnpm build
+        run: pnpm build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out
